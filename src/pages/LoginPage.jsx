@@ -99,7 +99,7 @@ const LoginPage = () => {
 
       <div className='w-full md:w-1/2 h-full bg-background flex flex-col p-20 justify-between items-center'>
         <h1 className='w-full max-w-[500px] mx-auto text-lg md:text-xl text-black font-semibold'>
-          Course Events
+          EventSE
         </h1>
 
         <div className='w-full flex flex-col max-w-[500px]'>
@@ -133,12 +133,7 @@ const LoginPage = () => {
                 placeholder='Password'
                 name='password'
                 {...register('password', {
-                  required: 'You must specify password',
-                  pattern: {
-                    value: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$/,
-                    message:
-                      'Password must contain at least one lower character, one upper character, digit or special symbol'
-                  }
+                  required: 'You must specify password'
                 })}
               />
               {errors?.password && (
@@ -149,14 +144,14 @@ const LoginPage = () => {
             </div>
 
             <div className='w-full  md:flex items-center justify-between'>
-              <div className='w-full md:flex hidden'>
+              {/* <div className='w-full md:flex hidden'>
                 <input type='checkbox' className='w-4 h-4 mr-2' />
                 <p className='text-sm'>Remember Me</p>
-              </div>
+              </div> */}
 
-              <p className='text-sm font-medium cursor-pointer whitespace-nowrap underline underline-offset-2'>
+              {/* <p className='text-sm font-medium cursor-pointer whitespace-nowrap underline underline-offset-2'>
                 <Link to={PATH.FORGET_PASSWORD}>Forgot Password?</Link>
-              </p>
+              </p> */}
             </div>
 
             <div className='w-full flex flex-col my-4'>
@@ -196,9 +191,8 @@ const LoginPage = () => {
 
         <div className='w-full flex items-center justify-center'>
           <p className='text-xs md:text-sm font-normal text-black'>
-            Don't have a account?{' '}
             <span className='font-semibold underline underline-offset-2 cursor-pointer'>
-              <Link to={PATH.SIGNUP}>Sign up for free</Link>
+              <Link to={PATH.EXPLORE}>Back to home</Link>
             </span>
           </p>
         </div>

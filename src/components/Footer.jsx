@@ -18,86 +18,29 @@ const Footer = () => {
             <Link to={PATH.HOME} className='mb-2'>
               <img src={LOGO2} alt='Logo' className='w-[120px]' />
             </Link>
-            <div className='flex gap-3 mt-1'>
-              <Link
-                to='https://www.facebook.com/'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <img
-                  src={FACEBOOK}
-                  alt='Facebook'
-                  className='w-[30px] lg:w-[40px] object-cover'
-                />
-              </Link>
-              <Link
-                to='https://www.tiktok.com/'
-                target='_blank'
-                rel='noopener noreferrer'
-                className='ml-2'
-              >
-                <img
-                  src={TIKTOK}
-                  alt='TikTok'
-                  className='w-[30px] lg:w-[42px] object-cover'
-                />
-              </Link>
-              <Link
-                to='https://shopee.vn/'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <img
-                  src={SHOPEE}
-                  alt='Shopee'
-                  className='w-[52px] lg:w-[64px] object-cover'
-                />
-              </Link>
-            </div>
           </div>
 
           <div className='grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3'>
             <div>
               <h2 className='mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white'>
-                Company Info
+                Event SE
               </h2>
               <ul className='text-gray-600'>
                 <li className='mb-3'>
-                  <Link className='hover:underline'>About Us</Link>
+                  <Link className='hover:underline'>Hot Events</Link>
                 </li>
                 <li className='mb-3'>
-                  <Link className='hover:underline'>Latest Posts</Link>
+                  <Link className='hover:underline'>Upcoming Events</Link>
                 </li>
                 <li className='mb-3'>
-                  <Link className='hover:underline'>Contact Us</Link>
+                  <Link className='hover:underline'>Events Registration</Link>
                 </li>
                 <li>
-                  <Link className='hover:underline'>Shop</Link>
+                  <Link className='hover:underline'>Events Management</Link>
                 </li>
               </ul>
             </div>
-            <div>
-              <h2 className='mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white'>
-                My Closet
-              </h2>
-              <ul className='text-gray-600'>
-                <li className='mb-3'>
-                  <Link className='hover:underline '>Profile</Link>
-                </li>
-                <li className='mb-3'>
-                  <Link className='hover:underline '>My Closet</Link>
-                </li>
-                <li className='mb-3'>
-                  <Link className='hover:underline '>Outfit Builder</Link>
-                </li>
-                <li className='mb-3'>
-                  <Link className='hover:underline '>Catalog</Link>
-                </li>
-                <li>
-                  <Link className='hover:underline'>Blog</Link>
-                </li>
-              </ul>
-            </div>
+
             <div className='w-[300px] md:w-auto'>
               <h2 className='mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white'>
                 GET IN THE KNOW
@@ -121,7 +64,7 @@ const Footer = () => {
 
         <div className='sm:flex sm:items-center sm:justify-between'>
           <span className='text-gray-600 sm:text-center dark:text-gray-400'>
-            © 2023. DressUp Co. Ltd.
+            © 2023. EventSE Co. Ltd.
           </span>
           <div className='flex mt-4 space-x-6 sm:justify-center sm:mt-0 text-gray-600'>
             <Link>Privacy Policy</Link>

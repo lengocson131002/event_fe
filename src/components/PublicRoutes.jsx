@@ -2,6 +2,8 @@ import React from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { PATH } from '../constants/common'
 import { useAuth } from '../hooks/useAuth'
+import HeaderDark from './HeaderDark'
+import Footer from './Footer'
 
 const PublicRoutes = () => {
   const location = useLocation()
@@ -12,7 +14,17 @@ const PublicRoutes = () => {
       {auth && location.pathname.split('/')[1] !== 'event' ? (
         <Navigate to={PATH.HOME} state={{ from: location }} />
       ) : (
-        <Outlet />
+        <>
+          {location.pathname.split('/')[1] === 'event' ? (
+            <>
+              <HeaderDark />
+              <Outlet />
+              <Footer />
+            </>
+          ) : (
+            <Outlet />
+          )}
+        </>
       )}
     </>
   )

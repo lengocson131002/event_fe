@@ -192,7 +192,7 @@ const LandingPage = () => {
               </span>
               <Select
                 allowClear
-                style={{ minWidth: '200px' }}
+                style={{ width: '250px' }}
                 onSearch={(value) => setSearchMajorValue(value)}
                 showSearch
                 searchValue={searchMajorValue}
@@ -232,7 +232,7 @@ const LandingPage = () => {
               </span>
               <Select
                 allowClear
-                style={{ minWidth: '200px' }}
+                style={{ width: '200px' }}
                 onSearch={(value) => setSearchSubjectValue(value)}
                 showSearch
                 searchValue={searchSubjectValue}

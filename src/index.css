@@ -108,3 +108,10 @@ input[type='file'] {
 .ant-btn-primary {
   background-color: #1677ff;
 }
+
+p.more-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}

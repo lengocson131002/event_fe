@@ -32,6 +32,7 @@ import { useMajor } from '../hooks/useMajor'
 import { toLowerCaseNonAccentVietnamese } from '../utils/compareStringNonVietnamese'
 
 import utc from 'dayjs/plugin/utc'
+import { CustomReactQuillComment } from '../components/Editor/Editor.style'
 dayjs.extend(utc)
 
 const { RangePicker } = DatePicker
@@ -518,6 +519,7 @@ const EventsManagementPage = () => {
             ]}
           >
             <Select
+              size='large'
               allowClear
               style={{ minWidth: '200px' }}
               onSearch={(value) => setSearchSemesterValue(value)}
@@ -559,6 +561,8 @@ const EventsManagementPage = () => {
             ]}
           >
             <Select
+              mode='multiple'
+              size='large'
               allowClear
               style={{ minWidth: '200px' }}
               onSearch={(value) => setSearchSubjectValue(value)}
@@ -674,7 +678,23 @@ const EventsManagementPage = () => {
               }
             ]}
           >
-            <Input.TextArea rows={5} size='large' />
+            <CustomReactQuillComment
+              // modules={modules}
+              formats={[
+                'header',
+                'font',
+                'size',
+                'bold',
+                'italic',
+                'underline',
+                'list',
+                'indent',
+                'link',
+                'color',
+                'image',
+                'mention'
+              ]}
+            />
           </Form.Item>
         </Form>
       </Drawer>

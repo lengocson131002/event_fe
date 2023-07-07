@@ -1,9 +1,5 @@
 import React, { useState } from 'react'
 import { HiArrowLeft, HiArrowRight } from 'react-icons/hi'
-import POSTER1 from '../assets/DRESSUPposter-01.png'
-import POSTER3 from '../assets/DRESSUPposter-03.jpeg'
-import POSTER4 from '../assets/DRESSUPposter-04.jpg'
-import POSTER5 from '../assets/DRESSUPposter-05.jpeg'
 
 const Banner = () => {
   const [currentSlide, setCurrentSlide] = useState(0)

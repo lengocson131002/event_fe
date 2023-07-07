@@ -260,7 +260,7 @@ const StudentsManagementPage = () => {
             </span>
             <Select
               allowClear
-              style={{ minWidth: '200px' }}
+              style={{ width: '250px' }}
               onSearch={(value) => setSearchMajorValue(value)}
               showSearch
               searchValue={searchMajorValue}

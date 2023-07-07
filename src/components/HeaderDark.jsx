@@ -79,12 +79,13 @@ const HeaderDark = () => {
           ))}
       </ul>
       {!auth ? (
-        <Link
-          to={PATH.LOGIN}
-          className='text-gray-500 text-[18px] lg:text-[20px] mx-2'
-        >
-          Log In
-        </Link>
+        <div className='flex items-end gap-4'>
+          <Link to={PATH.LOGIN} className='block text-xs md:text-sm'>
+            <button className='border px-4 py-1.5 rounded-md border-orange font-semibold text-orange hover:bg-orange hover:text-white duration-200'>
+              ĐĂNG NHẬP
+            </button>
+          </Link>
+        </div>
       ) : (
         <div className='flex items-center'>
           <div

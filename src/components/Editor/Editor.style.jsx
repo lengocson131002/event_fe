@@ -3,17 +3,13 @@ import styled from 'styled-components'
 
 export const CustomReactQuillComment = styled(ReactQuill)`
   max-width: 100%;
-  display: flex;
-  flex-direction: column-reverse;
 
   & .ql-toolbar.ql-snow {
-    display: none !important;
-    border: none;
   }
 
   & .ql-container.ql-snow {
+    height: 200px;
     border: 1px solid #dfdfdf !important;
-    border-radius: 5px;
 
     &:focus-within {
       border-color: #6ba7fa !important;

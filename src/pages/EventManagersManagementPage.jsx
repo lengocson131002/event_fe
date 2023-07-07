@@ -269,7 +269,6 @@ const EventManagersManagementPage = () => {
             rules={[
               {
                 required: true,
-                pattern: new RegExp(/^[A-Za-z0-9._%+-]+@fpt\.edu\.vn$/),
                 message: 'Please enter valid event manager email.'
               }
             ]}

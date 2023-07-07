@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
-import { TIME_FORMAT } from '../constants/common'
-import { Button, Image, Input, Modal, Steps, Table } from 'antd'
+import { PATH, TIME_FORMAT } from '../constants/common'
+import { Button, Image, Input, Modal, QRCode, Steps, Table } from 'antd'
 import AxiosPost from '../config/axiosPost'
 import { NotificationCustom } from '../components/Notification'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -11,6 +11,8 @@ import AxiosDelete from '../config/axiosDelete'
 import { useEventRegistrations } from '../hooks/useEventRegistration'
 import { ROLE } from '../constants/role'
 import AxiosPut from '../config/axiosPut'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../hooks/useAuth'
 
 const { confirm } = Modal
 const { Search } = Input
@@ -18,6 +20,8 @@ const { Search } = Input
 dayjs.extend(relativeTime)
 
 const Post = ({ event }) => {
+  const auth = useAuth()
+  const navigate = useNavigate()
   const userInfo = useSelector((state) => state?.global?.userInfo)
   const [query, setQuery] = useState()
 
@@ -28,7 +32,7 @@ const Post = ({ event }) => {
     useEventRegistrations(event?.id)
 
   useEffect(() => {
-    fetchStudentRegistrations({ eventId: event?.id })
+    fetchStudentRegistrations(userInfo?.studentId, { eventId: event?.id })
   }, [event])
 
   useEffect(() => {
@@ -115,59 +119,67 @@ const Post = ({ event }) => {
     }
   ]
 
-  console.log(studentRegistrations)
-
   const handleRegisterEvent = () => {
-    confirm({
-      title: 'Confirm',
-      content: 'Are you sure to register this event?',
-      onOk: () => {
-        AxiosPost(`events/${event?.id}/registrations`)
-          .then(() => {
-            fetchStudentRegistrations()
-            NotificationCustom({
-              type: 'success',
-              message: 'Success',
-              description: 'Register Successfully!'
+    if (!auth) {
+      navigate(PATH.LOGIN)
+    } else {
+      confirm({
+        title: 'Confirm',
+        content: 'Are you sure to register this event?',
+        onOk: () => {
+          AxiosPost(`events/${event?.id}/registrations`)
+            .then(() => {
+              fetchStudentRegistrations(userInfo?.studentId, {
+                eventId: event?.id
+              })
+              NotificationCustom({
+                type: 'success',
+                message: 'Success',
+                description: 'Register Successfully!'
+              })
             })
-          })
-          .catch((err) => {
-            NotificationCustom({
-              type: 'error',
-              message: 'Error',
-              description: err?.response?.data?.message || err.message
+            .catch((err) => {
+              NotificationCustom({
+                type: 'error',
+                message: 'Error',
+                description: err?.response?.data?.message || err.message
+              })
             })
-          })
-      }
-    })
+        }
+      })
+    }
   }
 
   const handleCancelRegisterEvent = () => {
-    confirm({
-      title: 'Confirm',
-      content: 'Are you sure to cancel register this event?',
-      onOk: () => {
-        AxiosDelete(`events/${event?.id}/registrations`)
-          .then(() => {
-            fetchStudentRegistrations()
-            NotificationCustom({
-              type: 'success',
-              message: 'Success',
-              description: 'Cancel register Successfully!'
+    if (!auth) {
+      navigate(PATH.LOGIN)
+    } else {
+      confirm({
+        title: 'Confirm',
+        content: 'Are you sure to cancel register this event?',
+        onOk: () => {
+          AxiosDelete(`events/${event?.id}/registrations`)
+            .then(() => {
+              fetchStudentRegistrations(userInfo?.studentId, {
+                eventId: event?.id
+              })
+              NotificationCustom({
+                type: 'success',
+                message: 'Success',
+                description: 'Cancel register Successfully!'
+              })
             })
-          })
-          .catch((err) => {
-            NotificationCustom({
-              type: 'error',
-              message: 'Error',
-              description: err?.response?.data?.message || err.message
+            .catch((err) => {
+              NotificationCustom({
+                type: 'error',
+                message: 'Error',
+                description: err?.response?.data?.message || err.message
+              })
             })
-          })
-      }
-    })
+        }
+      })
+    }
   }
-
-  const description = 'This is a description.'
 
   return (
     <>
@@ -192,15 +204,24 @@ const Post = ({ event }) => {
                 </p>
               </div>
             </div>
-            {studentRegistrations?.length &&
-            studentRegistrations[studentRegistrations?.length - 1]?.canceled ? (
-              <Button type='primary' size='large' onClick={handleRegisterEvent}>
-                Đăng ký
-              </Button>
+            {userInfo?.role === ROLE.STUDENT ? (
+              studentRegistrations?.length &&
+              studentRegistrations[studentRegistrations?.length - 1]
+                ?.canceled ? (
+                <Button
+                  type='primary'
+                  size='large'
+                  onClick={handleRegisterEvent}
+                >
+                  Đăng ký
+                </Button>
+              ) : (
+                <Button danger size='large' onClick={handleCancelRegisterEvent}>
+                  Hủy đăng ký
+                </Button>
+              )
             ) : (
-              <Button danger size='large' onClick={handleCancelRegisterEvent}>
-                Hủy đăng ký
-              </Button>
+              <></>
             )}
           </div>
         </address>
@@ -208,16 +229,26 @@ const Post = ({ event }) => {
           {event?.vnName} ({event?.enName})
         </h1>
       </header>
-      <p class='lead mb-2 italic'>
-        Semester: {event?.semester?.vnName} ({event?.semester?.enName})
-      </p>
-      <p class='lead mb-4 italic'>
-        Subjects:{' '}
-        {event?.subjects
-          ?.map((item) => item?.vnName + ` (${item?.enName})`)
-          .join(', ')}
-      </p>
-      <p class='mb-4 '>{event?.description}</p>
+      <div className='flex items-center justify-between'>
+        <div>
+          <p class='lead mb-2 italic'>
+            Semester: {event?.semester?.vnName} ({event?.semester?.enName})
+          </p>
+          <p class='lead mb-4 italic'>
+            Subjects:{' '}
+            {event?.subjects
+              ?.map((event) => event?.vnName + ` (${event?.enName})`)
+              .join(', ')}
+          </p>
+        </div>
+        <QRCode
+          value={`${process.env.REACT_APP_EVENT_URL}event/${event?.id}`}
+        />
+      </div>
+      <div
+        class='mb-4'
+        dangerouslySetInnerHTML={{ __html: event?.description }}
+      ></div>
       <Image src={event?.image} alt='' />
 
       {studentRegistrations?.length &&
@@ -256,7 +287,7 @@ const Post = ({ event }) => {
                 ]?.activities?.find((item) => item?.type === 'CHECKIN')
                   ?.completedAt
                   ? 'finish'
-                  : 'process'
+                  : 'wait'
               },
               {
                 title: 'Check Out',
@@ -276,7 +307,7 @@ const Post = ({ event }) => {
                 ]?.activities?.find((item) => item?.type === 'CHECKOUT')
                   ?.completedAt
                   ? 'finish'
-                  : 'process'
+                  : 'wait'
               }
             ]}
           />

@@ -62,7 +62,8 @@ export const routes = [
   },
   {
     path: PATH.EVENT_DETAIL,
-    element: <EventDetailPage />
+    element: <EventDetailPage />,
+    isPublic: true
   },
   { path: PATH.ACTIVATE, element: <ActivatePage /> },
   {
@@ -88,6 +89,12 @@ export const routes = [
     allowed: [ROLE.ADMIN]
   },
   {
+    title: 'EVENTS',
+    path: PATH.EVENTS_MANAGEMENT,
+    element: <EventsManagementPage />,
+    allowed: [ROLE.EVENT_MANAGER, ROLE.ADMIN]
+  },
+  {
     title: 'EVENT MANAGER',
     path: PATH.EVENT_MANAGER_DETAIL,
     element: <EventManagerDetailPage />
@@ -102,11 +109,5 @@ export const routes = [
     path: PATH.SEMESTER_MANAGEMENT,
     element: <SemestersManagementPage />,
     allowed: [ROLE.ADMIN]
-  },
-  {
-    title: 'EVENTS',
-    path: PATH.EVENTS_MANAGEMENT,
-    element: <EventsManagementPage />,
-    allowed: [ROLE.EVENT_MANAGER]
   }
 ]

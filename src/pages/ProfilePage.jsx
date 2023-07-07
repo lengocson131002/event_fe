@@ -6,6 +6,7 @@ import { Empty, Image, Input, Spin } from 'antd'
 import { useSelector } from 'react-redux'
 import { useStudentRegistrations } from '../hooks/useStudentRegistration'
 import Thumbnail from '../components/Thumbnail'
+import { ROLE } from '../constants/role'
 
 const { Search } = Input
 
@@ -55,44 +56,46 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      <div className='w-full flex flex-col items-center gap-4 bg-white'>
-        <div className='text-2xl mt-10  font-medium bg-black w-80 text-white py-2 text-center'>
-          SỰ KIỆN ĐÃ ĐĂNG KÝ
-        </div>
-        <span className='w-20 h-[3px] bg-black'></span>
+      {userInfo?.role === ROLE.STUDENT && (
+        <div className='w-full flex flex-col items-center gap-4 bg-white'>
+          <div className='text-2xl mt-10  font-medium bg-black w-80 text-white py-2 text-center'>
+            SỰ KIỆN ĐÃ ĐĂNG KÝ
+          </div>
+          <span className='w-20 h-[3px] bg-black'></span>
 
-        <div className='w-full flex flex-col items-center px-8 mb-8'>
-          <section className='bg-white'>
-            <div className='px-4 max-w-screen-xl lg:px-6 flex flex-col md:flex-row justify-between flex-wrap'>
-              <div className='flex flex-col gap-2  mb-2'>
-                <span className='text-sm mb-2 font-medium'>
-                  Tìm kiếm (Name):
-                </span>
-                <Search onSearch={(value) => setQuery(value)} />
+          <div className='w-full flex flex-col items-center px-8 mb-8'>
+            <section className='bg-white'>
+              <div className='px-4 max-w-screen-xl lg:px-6 flex flex-col md:flex-row justify-between flex-wrap'>
+                <div className='flex flex-col gap-2  mb-2'>
+                  <span className='text-sm mb-2 font-medium'>
+                    Tìm kiếm (Name):
+                  </span>
+                  <Search onSearch={(value) => setQuery(value)} />
+                </div>
               </div>
-            </div>
 
-            <div className='py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6'>
-              <div className='grid gap-8 lg:grid-cols-2'>
-                {studentRegistrations?.length ? (
-                  studentRegistrations
-                    ?.filter((item) => !item?.canceled)
-                    ?.map((item) => (
-                      <Spin spinning={loading}>
-                        <Thumbnail item={item?.event} />
-                      </Spin>
-                    ))
-                ) : (
-                  <Empty
-                    description='Không có sự kiện nào'
-                    style={{ minWidth: '80vw' }}
-                  />
-                )}
+              <div className='py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6'>
+                <div className='grid gap-8 lg:grid-cols-2'>
+                  {studentRegistrations?.length ? (
+                    studentRegistrations
+                      ?.filter((item) => !item?.canceled)
+                      ?.map((item) => (
+                        <Spin spinning={loading}>
+                          <Thumbnail item={item?.event} />
+                        </Spin>
+                      ))
+                  ) : (
+                    <Empty
+                      description='Không có sự kiện nào'
+                      style={{ minWidth: '80vw' }}
+                    />
+                  )}
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
