@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Banner from '../components/Banner'
 import { DatePicker, Empty, Image, Input, Pagination, Select, Spin } from 'antd'
 import Thumbnail from '../components/Thumbnail'
-import { useEvents } from '../hooks/useEvent'
+import { useEvents, useEventsHot, useEventsUpComing } from '../hooks/useEvent'
 import dayjs from 'dayjs'
 import 'dayjs/locale/vi'
 import { useSemester } from '../hooks/useSemester'
@@ -58,6 +58,8 @@ const HomePage = () => {
   const { semesters } = useSemester()
   const { subjects } = useSubjects()
   const { majors } = useMajor()
+  const { events: eventsHot, loading: loadingEventsHot } = useEventsHot()
+  const { events: eventsUpComing, loading: loadingEventsUpComing } = useEventsUpComing()
 
   useEffect(() => {
     fetchEvents({
@@ -89,12 +91,40 @@ const HomePage = () => {
   return (
     <div className='w-full'>
       <Banner />
+      <div className='w-full flex flex-col items-center px-8'>
+        <div className='text-2xl my-8 md:my-12 font-medium bg-black w-80 text-white py-2 text-center'>
+          HOT EVENTS
+        </div>
+        <div className='py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6'>
+          <div className='grid gap-8 lg:grid-cols-2'>
+            {eventsHot?.map((item) => (
+              <Spin spinning={loading}>
+                <Thumbnail item={item} />
+              </Spin>
+            ))}
+          </div>
+        </div>
+      </div>
 
+      <div className='w-full flex flex-col items-center px-8'>
+        <div className='text-2xl my-8 md:my-12 font-medium bg-black w-80 text-white py-2 text-center'>
+          UPCOMING EVENTS
+        </div>
+        <div className='py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6'>
+          <div className='grid gap-8 lg:grid-cols-2'>
+            {eventsUpComing?.map((item) => (
+              <Spin spinning={loading}>
+                <Thumbnail item={item} />
+              </Spin>
+            ))}
+          </div>
+        </div>
+      </div>
       <div className='w-full flex flex-col items-center gap-4 bg-white'>
         <div className='text-2xl mt-10  font-medium bg-black w-80 text-white py-2 text-center'>
-          KHÁM PHÁ SỰ KIỆN
+          EVENTS
         </div>
-        <span className='w-20 h-[3px] bg-black'></span>
+        <span className='w-20 mb-8 block h-[3px] bg-black'></span>
 
         <div className='w-full flex flex-col items-center px-8 mb-8'>
           <section className='bg-white'>

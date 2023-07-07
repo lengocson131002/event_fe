@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import { PATH, TIME_FORMAT } from '../constants/common'
-import { Button, Image, Input, Modal, QRCode, Steps, Table } from 'antd'
+import { Button, Image, Input, Modal, QRCode, Steps, Table, Tag } from 'antd'
 import AxiosPost from '../config/axiosPost'
 import { NotificationCustom } from '../components/Notification'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -13,6 +13,7 @@ import { ROLE } from '../constants/role'
 import AxiosPut from '../config/axiosPut'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
+import { AiFillIdcard } from 'react-icons/ai'
 
 const { confirm } = Modal
 const { Search } = Input
@@ -26,7 +27,9 @@ const Post = ({ event }) => {
   const [query, setQuery] = useState()
 
   const { studentRegistrations, fetchStudentRegistrations } =
-    useStudentRegistrations(userInfo?.studentId)
+    useStudentRegistrations(userInfo?.studentId, {
+      eventId: event?.id
+    })
 
   const { eventRegistrations, fetchEventRegistrations, loading } =
     useEventRegistrations(event?.id)
@@ -101,7 +104,7 @@ const Post = ({ event }) => {
               record?.activities?.find((item) => item.type === 'CHECKIN')
                 ?.completedAt
             }
-            onClick={() => handleCheckIn(record?.activities[0])}
+            onClick={() => handleCheckIn(record?.activities?.find((item) => item.type === 'CHECKIN'))}
           >
             Check In
           </Button>
@@ -110,7 +113,7 @@ const Post = ({ event }) => {
               record?.activities?.find((item) => item.type === 'CHECKOUT')
                 ?.completedAt
             }
-            onClick={() => handleCheckOut(record?.activities[1])}
+            onClick={() => handleCheckOut(record?.activities?.find((item) => item.type === 'CHECKOUT'))}
           >
             Check Out
           </Button>
@@ -180,7 +183,14 @@ const Post = ({ event }) => {
       })
     }
   }
-
+  
+  const activeRegistration = studentRegistrations 
+  && studentRegistrations?.length !== 0 
+  ? studentRegistrations?.find(item => !item?.canceled)
+  : undefined
+  
+  const registered = activeRegistration !== undefined
+  
   return (
     <>
       <header class='mb-4 lg:mb-6 not-format'>
@@ -199,29 +209,34 @@ const Post = ({ event }) => {
                 </span>
 
                 <p class='text-base font-light text-gray-500'>
-                  {dayjs(event?.startTime).format(TIME_FORMAT.DATE_MONTH_YEAR)}{' '}
-                  - {dayjs(event?.endTime).format(TIME_FORMAT.DATE_MONTH_YEAR)}
+                  {dayjs(event?.startTime).format(TIME_FORMAT.FULL_DATE_TIME)}{' '}
+                  - {dayjs(event?.endTime).format(TIME_FORMAT.FULL_DATE_TIME)}
                 </p>
               </div>
             </div>
-            {userInfo?.role === ROLE.STUDENT ? (
-              studentRegistrations?.length &&
-              studentRegistrations[studentRegistrations?.length - 1]
-                ?.canceled ? (
+            {!userInfo ? 
                 <Button
                   type='primary'
                   size='large'
                   onClick={handleRegisterEvent}
                 >
-                  Đăng ký
+                  Register
+                </Button> : <></>
+            }
+            {userInfo?.role === ROLE.STUDENT && (
+               !registered ? (
+                <Button
+                  type='primary'
+                  size='large'
+                  onClick={handleRegisterEvent}
+                >
+                  Register
                 </Button>
               ) : (
                 <Button danger size='large' onClick={handleCancelRegisterEvent}>
-                  Hủy đăng ký
+                  Cancel
                 </Button>
               )
-            ) : (
-              <></>
             )}
           </div>
         </address>
@@ -229,6 +244,12 @@ const Post = ({ event }) => {
           {event?.vnName} ({event?.enName})
         </h1>
       </header>
+      
+      <div className='my-5'>
+        <Image src={event?.image} alt='' />
+      </div>
+      
+      
       <div className='flex items-center justify-between'>
         <div>
           <p class='lead mb-2 italic'>
@@ -237,83 +258,73 @@ const Post = ({ event }) => {
           <p class='lead mb-4 italic'>
             Subjects:{' '}
             {event?.subjects
-              ?.map((event) => event?.vnName + ` (${event?.enName})`)
-              .join(', ')}
+              ?.map((item) => <Tag color='orange'>{item?.code}</Tag>)}
           </p>
         </div>
-        <QRCode
-          value={`${process.env.REACT_APP_EVENT_URL}event/${event?.id}`}
-        />
+        <div className='ml-5'>
+          <QRCode
+            value={`${process.env.REACT_APP_EVENT_URL}event/${event?.id}`}
+          />
+        </div>
       </div>
+      
+      <h1 className='mt-8 mb-5 text-xl font-bold'> DESCRIPTION</h1>
+      
       <div
         class='mb-4'
         dangerouslySetInnerHTML={{ __html: event?.description }}
       ></div>
-      <Image src={event?.image} alt='' />
 
-      {studentRegistrations?.length &&
-        !studentRegistrations[studentRegistrations?.length - 1]?.canceled && (
-          <Steps
-            style={{ marginTop: '4rem' }}
-            current={
-              studentRegistrations[
-                studentRegistrations?.length - 1
-              ]?.activities?.find((item) => item?.type === 'CHECKIN')
-                ?.completedAt
-                ? 1
-                : studentRegistrations[
-                    studentRegistrations?.length - 1
-                  ]?.activities?.find((item) => item?.type === 'CHECKOUT')
-                    ?.completedAt
-                ? 2
-                : 0
-            }
-            items={[
-              {
-                title: 'Check In',
-                description: studentRegistrations[
-                  studentRegistrations?.length - 1
-                ]?.activities?.find((item) => item?.type === 'CHECKIN')
+      { userInfo?.role === ROLE.STUDENT && registered && (
+          <>
+            <h1 className='mt-8 mb-5 text-xl font-bold'> ACTIVITIES</h1>
+            <Steps
+              current={
+                activeRegistration?.activities?.find((item) => item?.type === 'CHECKIN')
                   ?.completedAt
-                  ? dayjs(
-                      studentRegistrations[
-                        studentRegistrations?.length - 1
-                      ]?.activities?.find((item) => item?.type === 'CHECKIN')
-                        ?.completedAt
-                    ).format(TIME_FORMAT.FULL_DATE_TIME)
-                  : '',
-                status: studentRegistrations[
-                  studentRegistrations?.length - 1
-                ]?.activities?.find((item) => item?.type === 'CHECKIN')
-                  ?.completedAt
-                  ? 'finish'
-                  : 'wait'
-              },
-              {
-                title: 'Check Out',
-                description: studentRegistrations[
-                  studentRegistrations?.length - 1
-                ]?.activities?.find((item) => item?.type === 'CHECKOUT')
-                  ?.completedAt
-                  ? dayjs(
-                      studentRegistrations[
-                        studentRegistrations?.length - 1
-                      ]?.activities?.find((item) => item?.type === 'CHECKOUT')
-                        ?.completedAt
-                    ).format(TIME_FORMAT.FULL_DATE_TIME)
-                  : '',
-                status: studentRegistrations[
-                  studentRegistrations?.length - 1
-                ]?.activities?.find((item) => item?.type === 'CHECKOUT')
-                  ?.completedAt
-                  ? 'finish'
-                  : 'wait'
+                  ? 1
+                  : studentRegistrations[
+                      studentRegistrations?.length - 1
+                    ]?.activities?.find((item) => item?.type === 'CHECKOUT')
+                      ?.completedAt
+                  ? 2
+                  : null
               }
-            ]}
-          />
+              items={[
+                {
+                  title: 'Check In',
+                  description: activeRegistration?.activities?.find((item) => item?.type === 'CHECKIN')
+                    ?.completedAt
+                    ? dayjs(
+                        activeRegistration?.activities?.find((item) => item?.type === 'CHECKIN')
+                          ?.completedAt
+                      ).format(TIME_FORMAT.FULL_DATE_TIME)
+                    : '',
+                  status: activeRegistration?.activities?.find((item) => item?.type === 'CHECKIN')
+                    ?.completedAt
+                    ? 'finish'
+                    : 'wait'
+                },
+                {
+                  title: 'Check Out',
+                  description: activeRegistration?.activities?.find((item) => item?.type === 'CHECKOUT')
+                    ?.completedAt
+                    ? dayjs(
+                        activeRegistration?.activities?.find((item) => item?.type === 'CHECKOUT')
+                          ?.completedAt
+                      ).format(TIME_FORMAT.FULL_DATE_TIME)
+                    : '',
+                  status: activeRegistration?.activities?.find((item) => item?.type === 'CHECKOUT')
+                    ?.completedAt
+                    ? 'finish'
+                    : 'wait'
+                }
+              ]}
+            />
+          </>
         )}
 
-      {userInfo?.role === ROLE.EVENT_MANAGER && (
+      {userInfo?.role === ROLE.EVENT_MANAGER || userInfo?.role === ROLE.ADMIN && (
         <div style={{ marginTop: '2rem' }}>
           <h1 className='font-bold text-lg mb-4'>Students Registered</h1>
           <div className='text-sm mb-2 font-medium'>Tìm kiếm (Name):</div>

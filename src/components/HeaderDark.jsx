@@ -26,6 +26,10 @@ const HeaderDark = () => {
       description: 'Logout Successfully!'
     })
     navigate(PATH.LOGIN)
+    
+    // clear userinfo
+    dispatch(setUserInfo(null))
+    
   }
   const [isOpen, setIsOpen] = useState(false)
 
