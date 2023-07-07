@@ -148,7 +148,6 @@ const LandingPage = () => {
         <div className='text-2xl my-8 md:my-12 font-medium bg-black w-80 text-white py-2 text-center'>
           SỰ KIỆN HOT
         </div>
-        <CarouselBanner />
         <div className='py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6'>
           <div className='grid gap-8 lg:grid-cols-2'>
             {eventsHot?.map((item) => (
