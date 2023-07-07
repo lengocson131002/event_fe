@@ -58,9 +58,10 @@ const Thumbnail = ({ item }) => {
         </div>
         <QRCode value={`${process.env.REACT_APP_EVENT_URL}event/${item?.id}`} />
       </div>
-      <p className='mb-5 font-light text-gray-500 lg:min-w-[300px] min-w-[80vw] more-text'>
-        {item?.description}
-      </p>
+      <div
+        className='mb-5 font-light text-gray-500 lg:min-w-[300px] min-w-[80vw] more-text'
+        dangerouslySetInnerHTML={{ __html: item?.description }}
+      ></div>
       <div className='flex justify-between items-center'>
         <div className='flex items-center space-x-4'>
           <img
