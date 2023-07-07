@@ -245,12 +245,6 @@ const StudentsManagementPage = () => {
         >
           <EditOutlined style={{ color: 'blue' }} />
         </Button>
-        <Button
-          style={{ display: 'flex', alignItems: 'center' }}
-          disabled={selectedStudent?.length === 0}
-        >
-          <DeleteOutlined style={{ color: 'red' }} />
-        </Button>
       </div>
 
       <section className='bg-white'>

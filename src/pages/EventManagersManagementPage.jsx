@@ -144,12 +144,6 @@ const EventManagersManagementPage = () => {
         >
           <EditOutlined style={{ color: 'blue' }} />
         </Button>
-        <Button
-          style={{ display: 'flex', alignItems: 'center' }}
-          disabled={selectedEventManager?.length === 0}
-        >
-          <DeleteOutlined style={{ color: 'red' }} />
-        </Button>
       </div>
       <section className='bg-white'>
         <div className='flex flex-col md:flex-row justify-between flex-wrap'>

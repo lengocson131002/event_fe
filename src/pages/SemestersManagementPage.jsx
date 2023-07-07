@@ -134,12 +134,6 @@ const SemestersManagementPage = () => {
         >
           <EditOutlined style={{ color: 'blue' }} />
         </Button>
-        <Button
-          style={{ display: 'flex', alignItems: 'center' }}
-          disabled={selectedSemester?.length === 0}
-        >
-          <DeleteOutlined style={{ color: 'red' }} />
-        </Button>
       </div>
 
       <section className='bg-white'>
@@ -152,6 +146,9 @@ const SemestersManagementPage = () => {
       </section>
 
       <Table
+        pagination={{
+          hideOnSinglePage: true
+        }}
         loading={loading}
         columns={columns}
         dataSource={semesters}

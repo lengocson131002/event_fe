@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
-import { Image } from 'antd'
+import { Image, QRCode } from 'antd'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
 dayjs.extend(relativeTime) // Extend Day.js with the relativeTime plugin
@@ -35,20 +35,28 @@ const Thumbnail = ({ item }) => {
           {dayjs(item?.updatedAt).locale('vi').fromNow()}
         </span>
       </div>
-      <h2 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 '>
-        <div className='cursor-pointer' onClick={() => navigate(`/event/${1}`)}>
-          {item?.vnName} ({item?.enName})
+      <div className='flex items-center justify-between'>
+        <div>
+          <h2 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 '>
+            <div
+              className='cursor-pointer'
+              onClick={() => navigate(`/event/${1}`)}
+            >
+              {item?.vnName} ({item?.enName})
+            </div>
+          </h2>
+          <p class='lead mb-2 italic'>
+            Semester: {item?.semester?.vnName} ({item?.semester?.enName})
+          </p>
+          <p class='lead mb-4 italic'>
+            Subjects:{' '}
+            {item?.subjects
+              ?.map((item) => item?.vnName + ` (${item?.enName})`)
+              .join(', ')}
+          </p>
         </div>
-      </h2>
-      <p class='lead mb-2 italic'>
-        Semester: {item?.semester?.vnName} ({item?.semester?.enName})
-      </p>
-      <p class='lead mb-4 italic'>
-        Subjects:{' '}
-        {item?.subjects
-          ?.map((item) => item?.vnName + ` (${item?.enName})`)
-          .join(', ')}
-      </p>
+        <QRCode value={`${process.env.REACT_APP_EVENT_URL}event/${item?.id}`} />
+      </div>
       <p className='mb-5 font-light text-gray-500 lg:min-w-[300px] min-w-[80vw]'>
         {item?.description}
       </p>
