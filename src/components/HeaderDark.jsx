@@ -55,7 +55,7 @@ const HeaderDark = () => {
             className='w-[20px] lg:w-[26px]'
           />
         </div> */}
-        <Link to={PATH.HOME} className='mb-2'>
+        <Link to={!auth ? PATH.EXPLORE : PATH.HOME} className='mb-2'>
           <img src={LOGO} alt='logo' className='w-32 lg:w-36' />
         </Link>
       </div>

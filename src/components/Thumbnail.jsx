@@ -29,7 +29,8 @@ const Thumbnail = ({ item }) => {
             ></path>
             <path d='M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z'></path>
           </svg>
-          Sự kiện
+          Sự kiện{' '}
+          {item?.registerCount && <>({item?.registerCount} lượt đăng ký)</>}
         </span>
         <span className='text-sm'>
           {dayjs(item?.updatedAt).locale('vi').fromNow()}
