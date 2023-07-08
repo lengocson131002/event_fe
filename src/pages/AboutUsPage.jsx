@@ -17,9 +17,14 @@ const AboutUsPage = () => {
     <div className='w-full'>
       {/* <HeaderDark /> */}
       <div className='w-full m-auto text-white relative'>
-        <img src={BG_ABOUT} className='w-full h-[300px] object-cover' />
+        <img
+          src={
+            'https://scontent.fsgn5-8.fna.fbcdn.net/v/t39.30808-6/315836189_5819513801420666_8844126337200792987_n.jpg?_nc_cat=109&cb=99be929b-59f725be&ccb=1-7&_nc_sid=e3f864&_nc_ohc=DCK-T76rxcUAX-vf-Yb&_nc_ht=scontent.fsgn5-8.fna&oh=00_AfDbnqY0N_E5xH7HbOHNn-lGXIb4uL4o9vOm_qdFzN_CAQ&oe=64AAB067'
+          }
+          className='w-full h-[300px] object-cover'
+        />
         <span className='absolute top-1/2 -translate-y-1/2 left-24 text-2xl font-bold'>
-          ABOUT DRESSUP
+          ABOUT EVENTSE
         </span>
       </div>
 
@@ -87,8 +92,6 @@ const AboutUsPage = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   )
 }
