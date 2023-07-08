@@ -31,7 +31,7 @@ import { useSemester } from '../hooks/useSemester'
 import { useNavigate } from 'react-router-dom'
 import { useMajor } from '../hooks/useMajor'
 import { toLowerCaseNonAccentVietnamese } from '../utils/compareStringNonVietnamese'
-
+import 'react-quill/dist/quill.snow.css'
 import utc from 'dayjs/plugin/utc'
 import { CustomReactQuillComment } from '../components/Editor/Editor.style'
 dayjs.extend(utc)

@@ -9,8 +9,6 @@ const PrivateRoutes = () => {
   const location = useLocation()
   const auth = useAuth()
 
-  console.log(location)
-
   return (
     <>
       {auth ? (
@@ -22,7 +20,7 @@ const PrivateRoutes = () => {
           <Footer />
         </>
       ) : (
-        <Navigate to={PATH.LOGIN} state={{ from: location }} replace />
+        <Navigate to={PATH.EXPLORE} state={{ from: location }} replace />
       )}
     </>
   )

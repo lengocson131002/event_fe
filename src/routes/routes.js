@@ -19,7 +19,7 @@ import EventCheckOutPage from '../pages/EventCheckOutPage'
 
 export const routes = [
   {
-    path: '/',
+    path: PATH.EXPLORE,
     element: <LandingPage />,
     isPublic: true
   },
