@@ -603,7 +603,7 @@ const EventsManagementPage = () => {
               }
             ]}
           >
-            <DatePicker size='large' />
+            <DatePicker size='large' showTime />
           </Form.Item>
 
           <Form.Item
@@ -630,7 +630,7 @@ const EventsManagementPage = () => {
               })
             ]}
           >
-            <DatePicker size='large' />
+            <DatePicker size='large' showTime />
           </Form.Item>
 
           <Form.Item
