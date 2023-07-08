@@ -30,8 +30,12 @@ const Thumbnail = ({ item }) => {
             ></path>
             <path d='M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z'></path>
           </svg>
-          Event {' '}
-          {item?.registerCount && <Tag className='ml-2 text-lg' color='orange'>{item?.registerCount} registrations</Tag>}
+          Event{' '}
+          {item?.registerCount && (
+            <Tag className='ml-2 text-lg' color='orange'>
+              {item?.registerCount} registrations
+            </Tag>
+          )}
         </span>
         <span className='text-sm'>
           {dayjs(item?.updatedAt).locale('en').fromNow()}
@@ -51,13 +55,14 @@ const Thumbnail = ({ item }) => {
             Semester: {item?.semester?.vnName} ({item?.semester?.enName})
           </p>
           <p class='lead mb-2 italic'>
-            From {dayjs(item?.startTime).format(TIME_FORMAT.FULL_DATE_TIME)} to {dayjs(item?.endTime).format(TIME_FORMAT.FULL_DATE_TIME)}
+            From {dayjs(item?.startTime).format(TIME_FORMAT.FULL_DATE_TIME)} to{' '}
+            {dayjs(item?.endTime).format(TIME_FORMAT.FULL_DATE_TIME)}
           </p>
           <p class='lead mb-4 italic'>
             Subjects:{' '}
-            {item?.subjects
-              ?.map((item) => <Tag color="orange">{item?.code}</Tag>)
-            }
+            {item?.subjects?.map((item) => (
+              <Tag color='orange'>{item?.code}</Tag>
+            ))}
           </p>
         </div>
         <QRCode value={`${process.env.REACT_APP_EVENT_URL}event/${item?.id}`} />

@@ -59,7 +59,8 @@ const HomePage = () => {
   const { subjects } = useSubjects()
   const { majors } = useMajor()
   const { events: eventsHot, loading: loadingEventsHot } = useEventsHot()
-  const { events: eventsUpComing, loading: loadingEventsUpComing } = useEventsUpComing()
+  const { events: eventsUpComing, loading: loadingEventsUpComing } =
+    useEventsUpComing()
 
   useEffect(() => {
     fetchEvents({
@@ -97,11 +98,18 @@ const HomePage = () => {
         </div>
         <div className='py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6'>
           <div className='grid gap-8 lg:grid-cols-2'>
-            {eventsHot?.map((item) => (
-              <Spin spinning={loading}>
-                <Thumbnail item={item} />
-              </Spin>
-            ))}
+            {eventsHot?.length ? (
+              eventsHot?.map((item) => (
+                <Spin spinning={loading}>
+                  <Thumbnail item={item} />
+                </Spin>
+              ))
+            ) : (
+              <Empty
+                description='Không có sự kiện nào'
+                style={{ minWidth: '80vw' }}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -112,11 +120,18 @@ const HomePage = () => {
         </div>
         <div className='py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6'>
           <div className='grid gap-8 lg:grid-cols-2'>
-            {eventsUpComing?.map((item) => (
-              <Spin spinning={loading}>
-                <Thumbnail item={item} />
-              </Spin>
-            ))}
+            {eventsUpComing?.length ? (
+              eventsUpComing?.map((item) => (
+                <Spin spinning={loading}>
+                  <Thumbnail item={item} />
+                </Spin>
+              ))
+            ) : (
+              <Empty
+                description='Không có sự kiện nào'
+                style={{ minWidth: '80vw' }}
+              />
+            )}
           </div>
         </div>
       </div>

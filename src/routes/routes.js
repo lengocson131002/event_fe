@@ -1,26 +1,21 @@
 import { PATH } from '../constants/common'
 import { ROLE } from '../constants/role'
 import AboutUsPage from '../pages/AboutUsPage'
-import ActivatePage from '../pages/ActivatePage'
 import EventDetailPage from '../pages/EventDetailPage'
-import BlogPage from '../pages/BlogPage'
 import ContactPage from '../pages/ContactPage'
-import DiscoverPage from '../pages/DiscoverPage'
 import EventManagersManagementPage from '../pages/EventManagersManagementPage'
 import EventsManagementPage from '../pages/EventsManagementPage'
-import ForgetPasswordPage from '../pages/ForgetPasswordPage'
 import HomePage from '../pages/HomePage'
 import LandingPage from '../pages/LandingPage'
 import LoginPage from '../pages/LoginPage'
-import OutfitBuilderPage from '../pages/OutfitBuilderPage'
-import OutfitDetailPage from '../pages/OutfitDetailPage'
 import ProfilePage from '../pages/ProfilePage'
-import ResetPasswordPage from '../pages/ResetPasswordPage'
 import SemestersManagementPage from '../pages/SemestersManagementPage'
 import SignUpPage from '../pages/SignUpPage'
 import StudentsManagementPage from '../pages/StudentsManagementPage'
 import StudentDetailPage from '../pages/StudentDetailPage'
 import EventManagerDetailPage from '../pages/EventManagerDetailPage'
+import EventCheckInPage from '../pages/EventCheckInPage'
+import EventCheckOutPage from '../pages/EventCheckOutPage'
 
 export const routes = [
   {
@@ -65,15 +60,14 @@ export const routes = [
     element: <EventDetailPage />,
     isPublic: true
   },
-  { path: PATH.ACTIVATE, element: <ActivatePage /> },
   {
-    path: PATH.FORGET_PASSWORD,
-    element: <ForgetPasswordPage />,
+    path: PATH.EVENT_DETAIL_CHECK_IN,
+    element: <EventCheckInPage />,
     isPublic: true
   },
   {
-    path: PATH.RESET_PASSWORD,
-    element: <ResetPasswordPage />,
+    path: PATH.EVENT_DETAIL_CHECK_OUT,
+    element: <EventCheckOutPage />,
     isPublic: true
   },
   {

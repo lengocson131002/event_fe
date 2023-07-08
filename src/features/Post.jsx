@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import { PATH, TIME_FORMAT } from '../constants/common'
-import { Button, Image, Input, Modal, QRCode, Steps, Table, Tag } from 'antd'
+import {
+  Button,
+  Image,
+  Input,
+  Modal,
+  Popover,
+  QRCode,
+  Steps,
+  Table,
+  Tag
+} from 'antd'
 import AxiosPost from '../config/axiosPost'
 import { NotificationCustom } from '../components/Notification'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -13,7 +23,7 @@ import { ROLE } from '../constants/role'
 import AxiosPut from '../config/axiosPut'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
-import { AiFillIdcard } from 'react-icons/ai'
+import { AiFillEye, AiFillIdcard } from 'react-icons/ai'
 
 const { confirm } = Modal
 const { Search } = Input
@@ -104,7 +114,11 @@ const Post = ({ event }) => {
               record?.activities?.find((item) => item.type === 'CHECKIN')
                 ?.completedAt
             }
-            onClick={() => handleCheckIn(record?.activities?.find((item) => item.type === 'CHECKIN'))}
+            onClick={() =>
+              handleCheckIn(
+                record?.activities?.find((item) => item.type === 'CHECKIN')
+              )
+            }
           >
             Check In
           </Button>
@@ -113,7 +127,11 @@ const Post = ({ event }) => {
               record?.activities?.find((item) => item.type === 'CHECKOUT')
                 ?.completedAt
             }
-            onClick={() => handleCheckOut(record?.activities?.find((item) => item.type === 'CHECKOUT'))}
+            onClick={() =>
+              handleCheckOut(
+                record?.activities?.find((item) => item.type === 'CHECKOUT')
+              )
+            }
           >
             Check Out
           </Button>
@@ -183,73 +201,113 @@ const Post = ({ event }) => {
       })
     }
   }
-  
-  const activeRegistration = studentRegistrations 
-  && studentRegistrations?.length !== 0 
-  ? studentRegistrations?.find(item => !item?.canceled)
-  : undefined
-  
+
+  const activeRegistration =
+    studentRegistrations && studentRegistrations?.length !== 0
+      ? studentRegistrations?.find((item) => !item?.canceled)
+      : undefined
+
   const registered = activeRegistration !== undefined
-  
+
   return (
     <>
       <header class='mb-4 lg:mb-6 not-format'>
         <address class='flex items-center mb-6 not-italic'>
           <div className='flex items-center justify-between w-full'>
-            <div class='inline-flex items-center mr-3 text-sm text-gray-900'>
-              <img
-                class='mr-4 w-16 h-16 rounded-full'
-                src='https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg'
-                alt='Jese Leos'
-              />
-              <div>
-                <span class='text-xl font-bold text-gray-900'>
-                  Quản lý sự kiện (
-                  {dayjs(event?.updatedAt).locale('vi').fromNow()})
-                </span>
+            <div className='flex justify-between items-center w-full'>
+              <div class='inline-flex items-center mr-3 text-sm text-gray-900'>
+                <img
+                  class='mr-4 w-16 h-16 rounded-full'
+                  src='https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg'
+                  alt='Jese Leos'
+                />
+                <div>
+                  <span class='text-xl font-bold text-gray-900'>
+                    Quản lý sự kiện (
+                    {dayjs(event?.updatedAt).locale('vi').fromNow()})
+                  </span>
 
-                <p class='text-base font-light text-gray-500'>
-                  {dayjs(event?.startTime).format(TIME_FORMAT.FULL_DATE_TIME)}{' '}
-                  - {dayjs(event?.endTime).format(TIME_FORMAT.FULL_DATE_TIME)}
-                </p>
+                  <p class='text-base font-light text-gray-500'>
+                    {dayjs(event?.startTime).format(TIME_FORMAT.FULL_DATE_TIME)}{' '}
+                    - {dayjs(event?.endTime).format(TIME_FORMAT.FULL_DATE_TIME)}
+                  </p>
+                </div>
               </div>
+
+              {auth && userInfo?.role !== ROLE.STUDENT && (
+                <div className='flex gap-4'>
+                  <Popover
+                    trigger={'click'}
+                    overlayInnerStyle={{ padding: 0 }}
+                    content={
+                      <QRCode
+                        size={500}
+                        value={`${process.env.REACT_APP_EVENT_URL}event/${event?.id}/check-in`}
+                        bordered={false}
+                      />
+                    }
+                  >
+                    <Button>QR Check-in</Button>
+                  </Popover>
+                  <Popover
+                    trigger={'click'}
+                    overlayInnerStyle={{ padding: 0 }}
+                    content={
+                      <QRCode
+                        size={500}
+                        value={`${process.env.REACT_APP_EVENT_URL}event/${event?.id}/check-out`}
+                        bordered={false}
+                      />
+                    }
+                  >
+                    <Button>QR Check-out</Button>
+                  </Popover>
+                </div>
+              )}
             </div>
-            {!userInfo ? 
+            {!userInfo ? (
+              <Button
+                type='primary'
+                size='large'
+                onClick={handleRegisterEvent}
+                style={{ marginLeft: '4px' }}
+              >
+                Register
+              </Button>
+            ) : (
+              <></>
+            )}
+            {userInfo?.role === ROLE.STUDENT &&
+              (!registered ? (
                 <Button
                   type='primary'
                   size='large'
                   onClick={handleRegisterEvent}
-                >
-                  Register
-                </Button> : <></>
-            }
-            {userInfo?.role === ROLE.STUDENT && (
-               !registered ? (
-                <Button
-                  type='primary'
-                  size='large'
-                  onClick={handleRegisterEvent}
+                  style={{ marginLeft: '4px' }}
                 >
                   Register
                 </Button>
               ) : (
-                <Button danger size='large' onClick={handleCancelRegisterEvent}>
+                <Button
+                  danger
+                  size='large'
+                  onClick={handleCancelRegisterEvent}
+                  style={{ marginLeft: '4px' }}
+                >
                   Cancel
                 </Button>
-              )
-            )}
+              ))}
           </div>
         </address>
         <h1 class='mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl'>
           {event?.vnName} ({event?.enName})
         </h1>
       </header>
-      
+
       <div className='my-5'>
         <Image src={event?.image} alt='' />
       </div>
-      
-      
+
       <div className='flex items-center justify-between'>
         <div>
           <p class='lead mb-2 italic'>
@@ -257,8 +315,9 @@ const Post = ({ event }) => {
           </p>
           <p class='lead mb-4 italic'>
             Subjects:{' '}
-            {event?.subjects
-              ?.map((item) => <Tag color='orange'>{item?.code}</Tag>)}
+            {event?.subjects?.map((item) => (
+              <Tag color='orange'>{item?.code}</Tag>
+            ))}
           </p>
         </div>
         <div className='ml-5'>
@@ -267,80 +326,88 @@ const Post = ({ event }) => {
           />
         </div>
       </div>
-      
+
       <h1 className='mt-8 mb-5 text-xl font-bold'> DESCRIPTION</h1>
-      
+
       <div
         class='mb-4'
         dangerouslySetInnerHTML={{ __html: event?.description }}
       ></div>
 
-      { userInfo?.role === ROLE.STUDENT && registered && (
-          <>
-            <h1 className='mt-8 mb-5 text-xl font-bold'> ACTIVITIES</h1>
-            <Steps
-              current={
-                activeRegistration?.activities?.find((item) => item?.type === 'CHECKIN')
-                  ?.completedAt
-                  ? 1
-                  : studentRegistrations[
-                      studentRegistrations?.length - 1
-                    ]?.activities?.find((item) => item?.type === 'CHECKOUT')
-                      ?.completedAt
-                  ? 2
-                  : null
+      {userInfo?.role === ROLE.STUDENT && registered && (
+        <>
+          <h1 className='mt-8 mb-5 text-xl font-bold'> ACTIVITIES</h1>
+          <Steps
+            current={
+              activeRegistration?.activities?.find(
+                (item) => item?.type === 'CHECKIN'
+              )?.completedAt
+                ? 1
+                : studentRegistrations[
+                    studentRegistrations?.length - 1
+                  ]?.activities?.find((item) => item?.type === 'CHECKOUT')
+                    ?.completedAt
+                ? 2
+                : null
+            }
+            items={[
+              {
+                title: 'Check In',
+                description: activeRegistration?.activities?.find(
+                  (item) => item?.type === 'CHECKIN'
+                )?.completedAt
+                  ? dayjs(
+                      activeRegistration?.activities?.find(
+                        (item) => item?.type === 'CHECKIN'
+                      )?.completedAt
+                    ).format(TIME_FORMAT.FULL_DATE_TIME)
+                  : '',
+                status: activeRegistration?.activities?.find(
+                  (item) => item?.type === 'CHECKIN'
+                )?.completedAt
+                  ? 'finish'
+                  : 'wait'
+              },
+              {
+                title: 'Check Out',
+                description: activeRegistration?.activities?.find(
+                  (item) => item?.type === 'CHECKOUT'
+                )?.completedAt
+                  ? dayjs(
+                      activeRegistration?.activities?.find(
+                        (item) => item?.type === 'CHECKOUT'
+                      )?.completedAt
+                    ).format(TIME_FORMAT.FULL_DATE_TIME)
+                  : '',
+                status: activeRegistration?.activities?.find(
+                  (item) => item?.type === 'CHECKOUT'
+                )?.completedAt
+                  ? 'finish'
+                  : 'wait'
               }
-              items={[
-                {
-                  title: 'Check In',
-                  description: activeRegistration?.activities?.find((item) => item?.type === 'CHECKIN')
-                    ?.completedAt
-                    ? dayjs(
-                        activeRegistration?.activities?.find((item) => item?.type === 'CHECKIN')
-                          ?.completedAt
-                      ).format(TIME_FORMAT.FULL_DATE_TIME)
-                    : '',
-                  status: activeRegistration?.activities?.find((item) => item?.type === 'CHECKIN')
-                    ?.completedAt
-                    ? 'finish'
-                    : 'wait'
-                },
-                {
-                  title: 'Check Out',
-                  description: activeRegistration?.activities?.find((item) => item?.type === 'CHECKOUT')
-                    ?.completedAt
-                    ? dayjs(
-                        activeRegistration?.activities?.find((item) => item?.type === 'CHECKOUT')
-                          ?.completedAt
-                      ).format(TIME_FORMAT.FULL_DATE_TIME)
-                    : '',
-                  status: activeRegistration?.activities?.find((item) => item?.type === 'CHECKOUT')
-                    ?.completedAt
-                    ? 'finish'
-                    : 'wait'
-                }
-              ]}
-            />
-          </>
-        )}
-
-      {userInfo?.role === ROLE.EVENT_MANAGER || userInfo?.role === ROLE.ADMIN && (
-        <div style={{ marginTop: '2rem' }}>
-          <h1 className='font-bold text-lg mb-4'>Students Registered</h1>
-          <div className='text-sm mb-2 font-medium'>Tìm kiếm (Name):</div>
-          <Search
-            onSearch={(value) => setQuery(value)}
-            className='md:max-w-[300px] mb-4'
+            ]}
           />
-          <Table
-            loading={loading}
-            dataSource={dataEventRegistrationSuccess || []}
-            columns={columnEventRegistrationSuccess}
-            scroll={{ x: 1200 }}
-            pagination={{ hideOnSinglePage: true }}
-          />
-        </div>
+        </>
       )}
+
+      {userInfo?.role === ROLE.EVENT_MANAGER ||
+        (userInfo?.role === ROLE.ADMIN && (
+          <div style={{ marginTop: '2rem' }}>
+            <h1 className='font-bold text-lg mb-4'>Students Registered</h1>
+            <div className='text-sm mb-2 font-medium'>Tìm kiếm (Name):</div>
+            <Search
+              onSearch={(value) => setQuery(value)}
+              className='md:max-w-[300px] mb-4'
+            />
+            <Table
+              loading={loading}
+              dataSource={dataEventRegistrationSuccess || []}
+              columns={columnEventRegistrationSuccess}
+              scroll={{ x: 1200 }}
+              pagination={{ hideOnSinglePage: true }}
+            />
+          </div>
+        ))}
     </>
   )
 }

@@ -8,6 +8,7 @@ import {
   Modal,
   Select,
   Table,
+  Tag,
   Upload,
   message
 } from 'antd'
@@ -146,14 +147,13 @@ const EventsManagementPage = () => {
       title: 'Start Time',
       key: 'startTime',
       dataIndex: 'startTime',
-      render: (startTime) =>
-        dayjs(startTime).format(TIME_FORMAT.DATE_MONTH_YEAR)
+      render: (startTime) => dayjs(startTime).format(TIME_FORMAT.FULL_DATE_TIME)
     },
     {
       title: 'End Time',
       key: 'endTime',
       dataIndex: 'endTime',
-      render: (endTime) => dayjs(endTime).format(TIME_FORMAT.DATE_MONTH_YEAR)
+      render: (endTime) => dayjs(endTime).format(TIME_FORMAT.FULL_DATE_TIME)
     },
     {
       title: 'Semester',
@@ -167,9 +167,7 @@ const EventsManagementPage = () => {
       key: 'subjects',
       dataIndex: 'subjects',
       render: (_, record) =>
-        record?.subjects
-          ?.map((item) => item?.vnName + ` (${item?.enName})`)
-          .join(', ')
+        record?.subjects?.map((item) => <Tag color='orange'>{item?.code}</Tag>)
     },
     {
       title: 'Action',

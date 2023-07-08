@@ -21,7 +21,7 @@ export const useStudentRegistrations = (id, params) => {
 
   useEffect(() => {
     fetchStudentRegistrations(id, params)
-  }, [])
+  }, [id])
 
   return { loading, studentRegistrations, error, fetchStudentRegistrations }
 }
