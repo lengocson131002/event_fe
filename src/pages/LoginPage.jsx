@@ -50,7 +50,7 @@ const LoginPage = () => {
           message: 'Success',
           description: 'Login Successfully!'
         })
-        navigate(PATH.HOME)
+        navigate(-1)
       })
       .catch((err) => {
         NotificationCustom({
@@ -72,7 +72,7 @@ const LoginPage = () => {
           message: 'Success',
           description: 'Login Successfully!'
         })
-        navigate(PATH.HOME)
+        navigate(-1)
       })
       .catch((err) => {
         NotificationCustom({

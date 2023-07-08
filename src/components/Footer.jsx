@@ -1,12 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import LOGO2 from '../assets/logoFooter.png'
-import FACEBOOK from '../assets/facebook.png'
-import TIKTOK from '../assets/tiktok.png'
-import SHOPEE from '../assets/shoppee.png'
-import PHONE from '../assets/telephone.png'
-import EMAIL from '../assets/email.png'
-import WEB from '../assets/web.png'
 import { PATH } from '../constants/common'
 
 const Footer = () => {

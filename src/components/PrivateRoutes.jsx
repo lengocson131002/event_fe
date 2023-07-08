@@ -8,6 +8,9 @@ import Footer from './Footer'
 const PrivateRoutes = () => {
   const location = useLocation()
   const auth = useAuth()
+
+  console.log(location)
+
   return (
     <>
       {auth ? (

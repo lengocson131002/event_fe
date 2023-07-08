@@ -1,6 +1,4 @@
 import React from 'react'
-import HeaderDark from '../components/HeaderDark'
-import BG_ABOUT from '../assets/bgAbout.jpg'
 import PEOPLE1 from '../assets/people1.png'
 import PEOPLE from '../assets/people.png'
 import FOUNDER1 from '../assets/founder1.png'
@@ -10,7 +8,6 @@ import FOUNDER4 from '../assets/founder4.png'
 import TESTIMONIALS1 from '../assets/testimonials1.png'
 import TESTIMONIALS2 from '../assets/testimonials2.png'
 import QUOTE from '../assets/quote.png'
-import Footer from '../components/Footer'
 
 const AboutUsPage = () => {
   return (
