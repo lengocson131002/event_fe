@@ -234,37 +234,44 @@ const Post = ({ event }) => {
                 </div>
               </div>
 
-              <div className='flex gap-4'>
-                <Popover
-                  trigger={'click'}
-                  overlayInnerStyle={{ padding: 0 }}
-                  content={
-                    <QRCode
-                      size={500}
-                      value={`${process.env.REACT_APP_EVENT_URL}event/${event?.id}/check-in`}
-                      bordered={false}
-                    />
-                  }
-                >
-                  <Button>QR Check-in</Button>
-                </Popover>
-                <Popover
-                  trigger={'click'}
-                  overlayInnerStyle={{ padding: 0 }}
-                  content={
-                    <QRCode
-                      size={500}
-                      value={`${process.env.REACT_APP_EVENT_URL}event/${event?.id}/check-out`}
-                      bordered={false}
-                    />
-                  }
-                >
-                  <Button>QR Check-out</Button>
-                </Popover>
-              </div>
+              {auth && userInfo?.role !== ROLE.STUDENT && (
+                <div className='flex gap-4'>
+                  <Popover
+                    trigger={'click'}
+                    overlayInnerStyle={{ padding: 0 }}
+                    content={
+                      <QRCode
+                        size={500}
+                        value={`${process.env.REACT_APP_EVENT_URL}event/${event?.id}/check-in`}
+                        bordered={false}
+                      />
+                    }
+                  >
+                    <Button>QR Check-in</Button>
+                  </Popover>
+                  <Popover
+                    trigger={'click'}
+                    overlayInnerStyle={{ padding: 0 }}
+                    content={
+                      <QRCode
+                        size={500}
+                        value={`${process.env.REACT_APP_EVENT_URL}event/${event?.id}/check-out`}
+                        bordered={false}
+                      />
+                    }
+                  >
+                    <Button>QR Check-out</Button>
+                  </Popover>
+                </div>
+              )}
             </div>
             {!userInfo ? (
-              <Button type='primary' size='large' onClick={handleRegisterEvent}>
+              <Button
+                type='primary'
+                size='large'
+                onClick={handleRegisterEvent}
+                style={{ marginLeft: '4px' }}
+              >
                 Register
               </Button>
             ) : (
@@ -276,11 +283,17 @@ const Post = ({ event }) => {
                   type='primary'
                   size='large'
                   onClick={handleRegisterEvent}
+                  style={{ marginLeft: '4px' }}
                 >
                   Register
                 </Button>
               ) : (
-                <Button danger size='large' onClick={handleCancelRegisterEvent}>
+                <Button
+                  danger
+                  size='large'
+                  onClick={handleCancelRegisterEvent}
+                  style={{ marginLeft: '4px' }}
+                >
                   Cancel
                 </Button>
               ))}
