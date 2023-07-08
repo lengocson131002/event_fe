@@ -42,7 +42,7 @@ const Thumbnail = ({ item }) => {
           <h2 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 '>
             <div
               className='cursor-pointer'
-              onClick={() => navigate(`/event/${1}`)}
+              onClick={() => navigate(`/event/${item?.id}`)}
             >
               {item?.vnName} ({item?.enName})
             </div>
