@@ -1,8 +1,9 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
-import { Image, QRCode } from 'antd'
+import { Image, QRCode, Tag } from 'antd'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { TIME_FORMAT } from '../constants/common'
 
 dayjs.extend(relativeTime) // Extend Day.js with the relativeTime plugin
 
@@ -11,7 +12,7 @@ const Thumbnail = ({ item }) => {
 
   return (
     <article className='p-6 bg-white rounded-lg border border-gray-200 shadow-md '>
-      <div className='flex justify-center'>
+      <div className='flex justify-center h-[200px] overflow-hidden mb-5'>
         <Image src={item?.image} alt='' className='max-h-40 object-contain' />
       </div>
       <div className='flex justify-between items-center mb-5 text-gray-500'>
@@ -29,11 +30,11 @@ const Thumbnail = ({ item }) => {
             ></path>
             <path d='M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z'></path>
           </svg>
-          Sự kiện{' '}
-          {item?.registerCount && <>({item?.registerCount} lượt đăng ký)</>}
+          Event {' '}
+          {item?.registerCount && <Tag className='ml-2 text-lg' color='orange'>{item?.registerCount} registrations</Tag>}
         </span>
         <span className='text-sm'>
-          {dayjs(item?.updatedAt).locale('vi').fromNow()}
+          {dayjs(item?.updatedAt).locale('en').fromNow()}
         </span>
       </div>
       <div className='flex items-center justify-between'>
@@ -49,11 +50,14 @@ const Thumbnail = ({ item }) => {
           <p class='lead mb-2 italic'>
             Semester: {item?.semester?.vnName} ({item?.semester?.enName})
           </p>
+          <p class='lead mb-2 italic'>
+            From {dayjs(item?.startTime).format(TIME_FORMAT.FULL_DATE_TIME)} to {dayjs(item?.endTime).format(TIME_FORMAT.FULL_DATE_TIME)}
+          </p>
           <p class='lead mb-4 italic'>
             Subjects:{' '}
             {item?.subjects
-              ?.map((item) => item?.vnName + ` (${item?.enName})`)
-              .join(', ')}
+              ?.map((item) => <Tag color="orange">{item?.code}</Tag>)
+            }
           </p>
         </div>
         <QRCode value={`${process.env.REACT_APP_EVENT_URL}event/${item?.id}`} />
@@ -69,13 +73,13 @@ const Thumbnail = ({ item }) => {
             src='https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg'
             alt='avatar'
           />
-          <span className='font-medium'>Quản lý sự kiện</span>
+          <span className='font-medium'>Event manager</span>
         </div>
         <a
-          onClick={() => navigate(`/event/${1}`)}
+          onClick={() => navigate(`/event/${item.id}`)}
           className='inline-flex items-center font-medium text-primary-600 hover:underline cursor-pointer'
         >
-          Chi tiết
+          Details
           <svg
             className='ml-2 w-4 h-4'
             fill='currentColor'
