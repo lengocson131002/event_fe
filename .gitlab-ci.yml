@@ -46,4 +46,4 @@ deploy:
   tags:
     - shell
   only:
-    - develop
+    - master
