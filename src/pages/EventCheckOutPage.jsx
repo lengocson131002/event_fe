@@ -55,6 +55,12 @@ const EventCheckInPage = () => {
           studentRegistrations?.length - 1
         ]?.activities?.find((item) => item.type === 'CHECKOUT')
       )
+    } else {
+      NotificationCustom({
+        type: 'error',
+        message: 'Error',
+        description: 'You must register to this event to check-out'
+      })
     }
   }, [studentRegistrations])
 
