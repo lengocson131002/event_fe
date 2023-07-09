@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  userInfo: null
+  userInfo: null,
+  location: ''
 }
 
 export const globalSlice = createSlice({
@@ -10,10 +11,13 @@ export const globalSlice = createSlice({
   reducers: {
     setUserInfo: (state, action) => {
       state.userInfo = action.payload
+    },
+    setCheckLocation: (state, action) => {
+      state.location = action.payload
     }
   }
 })
 
-export const { setUserInfo } = globalSlice.actions
+export const { setUserInfo, setCheckLocation } = globalSlice.actions
 
 export default globalSlice.reducer

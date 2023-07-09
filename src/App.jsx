@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import PrivateRoutes from './components/PrivateRoutes'
 import PublicRoutes from './components/PublicRoutes'
 import { routes } from './routes/routes'

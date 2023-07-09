@@ -8,7 +8,7 @@ import MENU from '../assets/menu.png'
 import { useAuth } from '../hooks/useAuth'
 import AxiosGet from '../config/axiosGet'
 import { useDispatch, useSelector } from 'react-redux'
-import { setUserInfo } from '../app/global.store'
+import { setCheckLocation, setUserInfo } from '../app/global.store'
 import { routes } from '../routes/routes'
 
 const HeaderDark = () => {
@@ -25,11 +25,12 @@ const HeaderDark = () => {
       message: 'Success',
       description: 'Logout Successfully!'
     })
+    dispatch(setCheckLocation(''))
+
     navigate(PATH.LOGIN)
-    
+
     // clear userinfo
     dispatch(setUserInfo(null))
-    
   }
   const [isOpen, setIsOpen] = useState(false)
 

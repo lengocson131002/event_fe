@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useStudentRegistrations } from '../hooks/useStudentRegistration'
 import { Alert, Button, Result, Spin } from 'antd'
@@ -9,8 +9,10 @@ import { useAuth } from '../hooks/useAuth'
 import { PATH } from '../constants/common'
 import { useEventById } from '../hooks/useEvent'
 import Post from '../features/Post'
+import { setCheckLocation } from '../app/global.store'
 
 const EventCheckInPage = () => {
+  const dispatch = useDispatch()
   const location = useLocation()
   const navigate = useNavigate()
   const { id } = useParams()
@@ -56,13 +58,19 @@ const EventCheckInPage = () => {
         ]?.activities?.find((item) => item.type === 'CHECKOUT')
       )
     } else {
-      NotificationCustom({
-        type: 'error',
-        message: 'Error',
-        description: 'You must register to this event to check-out'
-      })
+      if (auth) {
+        !loading &&
+          NotificationCustom({
+            type: 'error',
+            message: 'Error',
+            description: 'You must register to this event to check-out'
+          })
+      } else {
+        dispatch(setCheckLocation(location.pathname))
+        navigate(PATH.LOGIN)
+      }
     }
-  }, [studentRegistrations])
+  }, [studentRegistrations, auth])
 
   return (
     <Spin spinning={loading}>

@@ -9,9 +9,11 @@ import { useForm } from 'react-hook-form'
 import AxiosPost from '../config/axiosPost'
 import { NotificationCustom } from '../components/Notification'
 import AxiosGet from '../config/axiosGet'
+import { useSelector } from 'react-redux'
 
 const LoginPage = () => {
   const navigate = useNavigate()
+  const prevLocation = useSelector((state) => state.global.location)
   const {
     register,
     handleSubmit,
@@ -50,7 +52,7 @@ const LoginPage = () => {
           message: 'Success',
           description: 'Login Successfully!'
         })
-        navigate(-1)
+        navigate(prevLocation || -1, { replace: true })
       })
       .catch((err) => {
         NotificationCustom({
@@ -72,7 +74,7 @@ const LoginPage = () => {
           message: 'Success',
           description: 'Login Successfully!'
         })
-        navigate(-1)
+        navigate(prevLocation || -1, { replace: true })
       })
       .catch((err) => {
         NotificationCustom({
