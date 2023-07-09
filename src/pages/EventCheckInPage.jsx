@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useStudentRegistrations } from '../hooks/useStudentRegistration'
-import { Button, Result, Spin } from 'antd'
+import { Alert, Button, Result, Spin } from 'antd'
 import { NotificationCustom } from '../components/Notification'
 import AxiosPut from '../config/axiosPut'
 import { useAuth } from '../hooks/useAuth'
@@ -58,20 +58,36 @@ const EventCheckInPage = () => {
     }
   }, [studentRegistrations])
 
+  // useEffect(() => {
+  //   if (!auth) {
+  //     navigate(PATH.LOGIN)
+  //   }
+  // }, [auth])
+
   return (
-    <Spin spinning={loading}>
-      <div class='flex justify-between px-4 mx-auto max-w-screen-xl'>
-        {/* <article class='mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue'> */}
-        <main class='w-full pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white'>
-          {!loading ? (
-            <Post event={event} fetchEvent={fetchEvent} id={id} />
-          ) : (
-            <></>
-          )}
-        </main>
-        {/* </article> */}
-      </div>
-    </Spin>
+    <>
+      {
+        <Spin spinning={loading}>
+          <div class='flex flex-col justify-between px-4 mx-auto max-w-screen-xl'>
+            <Alert
+              message='Please login before check-in'
+              type='warning'
+              showIcon
+              style={{ marginTop: '1rem' }}
+            />
+            {/* <article class='mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue'> */}
+            <main class='w-full pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white'>
+              {!loading ? (
+                <Post event={event} fetchEvent={fetchEvent} id={id} />
+              ) : (
+                <></>
+              )}
+            </main>
+            {/* </article> */}
+          </div>
+        </Spin>
+      }
+    </>
   )
 }
 
