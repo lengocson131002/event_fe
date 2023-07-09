@@ -202,6 +202,18 @@ const LandingPage = () => {
 
             <div className='flex flex-col gap-2 mb-2'>
               <span className='text-sm mb-2 font-medium'>
+                Thời gian (Time):
+              </span>
+              <RangePicker
+                allowClear
+                presets={rangePresets}
+                onChange={onRangeChange}
+                style={{ marginBottom: 12 }}
+              />
+            </div>
+
+            <div className='flex flex-col gap-2 mb-2'>
+              <span className='text-sm mb-2 font-medium'>
                 Chuyên ngành (Major):
               </span>
               <Select
@@ -273,18 +285,6 @@ const LandingPage = () => {
                     </Select.Option>
                   ))}
               </Select>
-            </div>
-
-            <div className='flex flex-col gap-2 mb-2'>
-              <span className='text-sm mb-2 font-medium'>
-                Thời gian (Time):
-              </span>
-              <RangePicker
-                allowClear
-                presets={rangePresets}
-                onChange={onRangeChange}
-                style={{ marginBottom: 12 }}
-              />
             </div>
           </div>
           <div className='py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6'>
