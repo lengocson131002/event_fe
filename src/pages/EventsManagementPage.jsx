@@ -307,6 +307,18 @@ const EventsManagementPage = () => {
           </div>
 
           <div className='flex flex-col gap-2 mb-2'>
+            <span className='text-sm mb-2 font-medium'>Thời gian (Time):</span>
+            <RangePicker
+              allowClear
+              presets={rangePresets}
+              onChange={onRangeChange}
+              style={{ marginBottom: 12 }}
+              // showTime
+              picker='date'
+            />
+          </div>
+
+          <div className='flex flex-col gap-2 mb-2'>
             <span className='text-sm mb-2 font-medium'>Học kì (Semester):</span>
             <Select
               allowClear
@@ -345,7 +357,7 @@ const EventsManagementPage = () => {
             </span>
             <Select
               allowClear
-              style={{ minWidth: '200px' }}
+              style={{ minWidth: '250px' }}
               onSearch={(value) => setSearchMajorValue(value)}
               showSearch
               searchValue={searchMajorValue}
@@ -410,16 +422,6 @@ const EventsManagementPage = () => {
                   </Select.Option>
                 ))}
             </Select>
-          </div>
-
-          <div className='flex flex-col gap-2 mb-2'>
-            <span className='text-sm mb-2 font-medium'>Thời gian (Time):</span>
-            <RangePicker
-              allowClear
-              presets={rangePresets}
-              onChange={onRangeChange}
-              style={{ marginBottom: 12 }}
-            />
           </div>
         </div>
       </section>

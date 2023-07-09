@@ -5,10 +5,10 @@ const Banner = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
 
   const data = [
-    'https://scontent.fsgn5-8.fna.fbcdn.net/v/t39.30808-6/315836189_5819513801420666_8844126337200792987_n.jpg?_nc_cat=109&cb=99be929b-59f725be&ccb=1-7&_nc_sid=e3f864&_nc_ohc=DCK-T76rxcUAX-vf-Yb&_nc_ht=scontent.fsgn5-8.fna&oh=00_AfDbnqY0N_E5xH7HbOHNn-lGXIb4uL4o9vOm_qdFzN_CAQ&oe=64AAB067',
-    'https://scontent.fsgn5-3.fna.fbcdn.net/v/t39.30808-6/275852637_5110167279021992_4702757106072420139_n.jpg?_nc_cat=104&cb=99be929b-59f725be&ccb=1-7&_nc_sid=e3f864&_nc_ohc=OYBBm-qVONkAX-8Kv3T&_nc_ht=scontent.fsgn5-3.fna&oh=00_AfBjYgTacnqbiah57ijMyjw1anjWYJAx6z4Lv5-tSf5RwA&oe=64AAB546',
-    'https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-6/273733237_5019553998083321_9047822980870471450_n.jpg?_nc_cat=107&cb=99be929b-59f725be&ccb=1-7&_nc_sid=e3f864&_nc_ohc=A4WK9F53SfoAX-oY96j&_nc_ht=scontent.fsgn5-10.fna&oh=00_AfADx_9yW42Qww2sp6J_96Dje4pGOXLPlrGTtp_io27JWg&oe=64A93192',
-    'https://scontent.fsgn5-14.fna.fbcdn.net/v/t39.30808-6/259086047_4711743872197670_6614253785920679731_n.jpg?_nc_cat=101&cb=99be929b-59f725be&ccb=1-7&_nc_sid=e3f864&_nc_ohc=FrENhBTs8yMAX-hSUF4&_nc_ht=scontent.fsgn5-14.fna&oh=00_AfCaMvovjdygaQovIzXGokE1THoanz88s8sBvkh71uaUAA&oe=64A9FFF6'
+    'https://swp-event.s3.ap-southeast-1.amazonaws.com/1688894419693315836189_5819513801420666_8844126337200792987_n.jpg',
+    'https://swp-event.s3.ap-southeast-1.amazonaws.com/1688894443207275852637_5110167279021992_4702757106072420139_n.jpg',
+    'https://swp-event.s3.ap-southeast-1.amazonaws.com/1688894460324273733237_5019553998083321_9047822980870471450_n.jpg',
+    'https://swp-event.s3.ap-southeast-1.amazonaws.com/1688894472913259086047_4711743872197670_6614253785920679731_n.jpg'
   ]
 
   const prevSlide = () => {

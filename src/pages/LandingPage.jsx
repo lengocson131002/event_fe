@@ -343,7 +343,7 @@ const LandingPage = () => {
 
       <div className='w-full h-[0px]'>
         <img
-          src='https://scontent.fsgn5-8.fna.fbcdn.net/v/t39.30808-6/348562480_983723215970400_3113199875836967802_n.jpg?_nc_cat=109&cb=99be929b-59f725be&ccb=1-7&_nc_sid=730e14&_nc_ohc=abSsbFq-xsMAX8zQHPM&_nc_ht=scontent.fsgn5-8.fna&oh=00_AfB_pdJX0uT4dqnD7aEOTL_4VNwkno_9aLyaXcnH8hrNqQ&oe=64A9B18C'
+          src='https://swp-event.s3.ap-southeast-1.amazonaws.com/1688894831560335599212_228776362854670_6254377344589252239_n.jpg'
           alt=''
         />
       </div>
@@ -354,28 +354,28 @@ const LandingPage = () => {
         </div>
         <div className='w-full max-w-5xl p-5 pb-10 mx-auto mb-10 gap-5 columns-3 space-y-5'>
           <img
-            src='https://scontent.fsgn5-5.fna.fbcdn.net/v/t39.30808-6/356213111_656883989814778_2231285817942062020_n.jpg?_nc_cat=100&cb=99be929b-59f725be&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=1Lp9zcVyG5gAX8YFLOM&_nc_ht=scontent.fsgn5-5.fna&oh=00_AfCj6jaktn55KQR-zEv5r3Sk-lOHnz63Vjt75UpMPV9mkg&oe=64A92BE9'
+            src='https://swp-event.s3.ap-southeast-1.amazonaws.com/1688894710152354452671_651195930383584_1956472082919072178_n.jpg'
             alt=''
           />
           <img
-            src='https://scontent.fsgn5-9.fna.fbcdn.net/v/t39.30808-6/355281353_654413006728543_636684727483353825_n.jpg?_nc_cat=102&cb=99be929b-59f725be&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=BPV1-fcz4_0AX_WtyFB&_nc_ht=scontent.fsgn5-9.fna&oh=00_AfDUw9kXB5BmdsCD26T5mRJRKo6eaCYA3-5XZXIld0aFMQ&oe=64A9405F'
+            src='https://swp-event.s3.ap-southeast-1.amazonaws.com/1688894727595358066503_603927441873901_5571395146872665120_n.jpg'
             alt=''
           />
 
           <img
-            src='https://scontent.fsgn5-8.fna.fbcdn.net/v/t39.30808-6/354452671_651195930383584_1956472082919072178_n.jpg?_nc_cat=109&cb=99be929b-59f725be&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=7UMSNJ_T178AX-IsOVz&_nc_ht=scontent.fsgn5-8.fna&oh=00_AfDlP74dMc635bzs2a4tCBzZMm4eEdHM7Ui1rDDO-rRXUQ&oe=64AA9650'
+            src='https://swp-event.s3.ap-southeast-1.amazonaws.com/1688894738870357496575_602328102033835_7534421180291524663_n.jpg'
             alt=''
           />
           <img
-            src='https://scontent.fsgn5-10.fna.fbcdn.net/v/t39.30808-6/357799868_662989422537568_6516230266412233255_n.jpg?_nc_cat=107&cb=99be929b-59f725be&ccb=1-7&_nc_sid=730e14&_nc_ohc=KFyyEHc6A2oAX-PRAB5&_nc_ht=scontent.fsgn5-10.fna&oh=00_AfAB1-2MQBRKhLmXoD3CIpxvgOBpVaOEXOr2_7zwTs3acA&oe=64A98B64'
+            src='https://swp-event.s3.ap-southeast-1.amazonaws.com/1688894750855356881378_599822935617685_337268740260722712_n.jpg'
             alt=''
           />
           <img
-            src='https://hcmuni.fpt.edu.vn/Data/Sites/1/media/zz2020file/halloween/halloween---hi%CC%80nh-2-(1)-(1).jpg'
+            src='https://swp-event.s3.ap-southeast-1.amazonaws.com/1688894762966356372644_597540069179305_5219595574965279381_n.jpg'
             alt=''
           />
           <img
-            src='https://scontent.fsgn5-15.fna.fbcdn.net/v/t39.30808-6/349119685_760307352307213_7507654074818927862_n.jpg?_nc_cat=111&cb=99be929b-59f725be&ccb=1-7&_nc_sid=730e14&_nc_ohc=bor-UDGT3S0AX8Vlgvy&_nc_ht=scontent.fsgn5-15.fna&oh=00_AfDoSjELw8R9MtMbIFwvO8T-A8X8weHqTGbRgueFOzkA5Q&oe=64A9BA76'
+            src='https://swp-event.s3.ap-southeast-1.amazonaws.com/1688894771777355139653_594682492798396_2092227923292925852_n.jpg'
             alt=''
           />
         </div>
