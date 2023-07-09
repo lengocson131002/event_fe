@@ -9,4 +9,5 @@ const AxiosDelete = async (url, params = {}, data = {}) => {
   }
 }
 
+
 export default AxiosDelete
