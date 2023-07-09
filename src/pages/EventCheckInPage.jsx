@@ -71,7 +71,7 @@ const EventCheckInPage = () => {
           <div class='flex flex-col justify-between px-4 mx-auto max-w-screen-xl'>
             {!auth && (
               <Alert
-                message='Please login before check-in'
+                message='Please login and register to event before check-in'
                 type='warning'
                 showIcon
                 style={{ marginTop: '1rem' }}
