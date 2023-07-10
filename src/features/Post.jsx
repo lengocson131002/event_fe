@@ -56,6 +56,10 @@ const Post = ({ event }) => {
     ?.filter((item) => !item?.canceled)
     ?.map((item) => ({ ...item?.student, activities: item?.activities }))
 
+  const isCheckInOut = studentRegistrations?.find((regis) =>
+    regis?.activities?.find((act) => act?.completedAt)
+  )
+
   const handleCheckIn = (activity) => {
     AxiosPut(`/events/${event?.id}/activities/${activity?.id}/complete`)
       .then(() => {
@@ -278,6 +282,7 @@ const Post = ({ event }) => {
               <></>
             )}
             {userInfo?.role === ROLE.STUDENT &&
+              !isCheckInOut &&
               (!registered ? (
                 <Button
                   type='primary'

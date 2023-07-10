@@ -226,8 +226,9 @@ const EventManagersManagementPage = () => {
           <Form.Item
             label='Password'
             name='password'
+            hidden={isUpdate}
             rules={[
-              {
+              !isUpdate && {
                 required: true,
                 min: 8,
                 max: 2147483647,
@@ -256,7 +257,8 @@ const EventManagersManagementPage = () => {
             rules={[
               {
                 required: true,
-                message: 'Please enter event manager phone.'
+                pattern: new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g),
+                message: 'Please enter valid event manager phone.'
               }
             ]}
           >

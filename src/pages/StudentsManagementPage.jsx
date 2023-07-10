@@ -380,7 +380,8 @@ const StudentsManagementPage = () => {
             rules={[
               {
                 required: true,
-                message: 'Please enter student phone.'
+                pattern: new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g),
+                message: 'Please enter valid student phone.'
               }
             ]}
           >
