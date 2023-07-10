@@ -16,12 +16,14 @@ import StudentDetailPage from '../pages/StudentDetailPage'
 import EventManagerDetailPage from '../pages/EventManagerDetailPage'
 import EventCheckInPage from '../pages/EventCheckInPage'
 import EventCheckOutPage from '../pages/EventCheckOutPage'
+import NotFoundPage from '../pages/NotFoundPage'
 
 export const routes = [
   {
     path: PATH.EXPLORE,
     element: <LandingPage />,
-    isPublic: true
+    isPublic: true,
+    allowed: [ROLE.STUDENT, ROLE.ADMIN, ROLE.EVENT_MANAGER]
   },
   {
     title: 'HOME',
@@ -32,12 +34,14 @@ export const routes = [
   {
     path: PATH.SIGNUP,
     element: <SignUpPage />,
-    isPublic: true
+    isPublic: true,
+    allowed: [ROLE.STUDENT, ROLE.ADMIN, ROLE.EVENT_MANAGER]
   },
   {
     path: PATH.LOGIN,
     element: <LoginPage />,
-    isPublic: true
+    isPublic: true,
+    allowed: [ROLE.STUDENT, ROLE.ADMIN, ROLE.EVENT_MANAGER]
   },
   {
     title: 'ABOUT US',
@@ -53,22 +57,26 @@ export const routes = [
   },
   {
     path: PATH.PROFILE,
-    element: <ProfilePage />
+    element: <ProfilePage />,
+    allowed: [ROLE.STUDENT, ROLE.ADMIN, ROLE.EVENT_MANAGER]
   },
   {
     path: PATH.EVENT_DETAIL,
     element: <EventDetailPage />,
-    isPublic: true
+    isPublic: true,
+    allowed: [ROLE.STUDENT, ROLE.ADMIN, ROLE.EVENT_MANAGER]
   },
   {
     path: PATH.EVENT_DETAIL_CHECK_IN,
     element: <EventCheckInPage />,
-    isPublic: true
+    isPublic: true,
+    allowed: [ROLE.STUDENT, ROLE.ADMIN, ROLE.EVENT_MANAGER]
   },
   {
     path: PATH.EVENT_DETAIL_CHECK_OUT,
     element: <EventCheckOutPage />,
-    isPublic: true
+    isPublic: true,
+    allowed: [ROLE.STUDENT, ROLE.ADMIN, ROLE.EVENT_MANAGER]
   },
   {
     title: 'STUDENTS',
@@ -91,12 +99,14 @@ export const routes = [
   {
     title: 'EVENT MANAGER',
     path: PATH.EVENT_MANAGER_DETAIL,
-    element: <EventManagerDetailPage />
+    element: <EventManagerDetailPage />,
+    allowed: [ROLE.STUDENT, ROLE.ADMIN, ROLE.EVENT_MANAGER]
   },
   {
     title: 'STUDENT',
     path: PATH.STUDENT_DETAIL,
-    element: <StudentDetailPage />
+    element: <StudentDetailPage />,
+    allowed: [ROLE.STUDENT, ROLE.ADMIN, ROLE.EVENT_MANAGER]
   },
   {
     title: 'SEMESTERS',
