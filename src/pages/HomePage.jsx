@@ -143,7 +143,7 @@ const HomePage = () => {
 
         <div className='w-full flex flex-col items-center px-8 mb-8'>
           <section className='bg-white'>
-            <div className='px-4 max-w-screen-xl lg:px-6 flex flex-col md:flex-row justify-between flex-wrap'>
+            <div className='px-4 max-w-screen-xl lg:px-6 flex flex-col md:flex-row justify-between flex-wrap gap-4'>
               <div className='flex flex-col gap-2  mb-2'>
                 <span className='text-sm mb-2 font-medium'>
                   Tìm kiếm (Name):

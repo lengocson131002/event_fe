@@ -33,7 +33,7 @@ const EventCheckInPage = () => {
         NotificationCustom({
           type: 'success',
           message: 'Success',
-          description: 'Check In Successfully!'
+          description: 'Check Out Successfully!'
         })
         navigate(`/event/${id}`)
       })

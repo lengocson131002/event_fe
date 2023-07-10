@@ -14,7 +14,7 @@ const PrivateRoutes = () => {
       {auth ? (
         <>
           <HeaderDark />
-          <div style={{ minHeight: '60vh' }}>
+          <div style={{ minHeight: '60vh', maxWidth: '100vw' }}>
             <Outlet />
           </div>
           <Footer />
