@@ -66,7 +66,9 @@ const HeaderDark = () => {
       </div>
       <ul className='flex p-1 lg:p-6 text-[#6F6F6F] text-[13.5px] lg:text-[16px] font-medium'>
         {routes
-          .filter((item) => item.allowed?.includes(userInfo?.role))
+          .filter(
+            (item) => item.allowed?.includes(userInfo?.role) && item?.title
+          )
           .map((item) => (
             <li className='mx-2 lg:mx-10 cursor-pointer'>
               <Link

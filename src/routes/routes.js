@@ -97,21 +97,24 @@ export const routes = [
     allowed: [ROLE.EVENT_MANAGER, ROLE.ADMIN]
   },
   {
-    title: 'EVENT MANAGER',
     path: PATH.EVENT_MANAGER_DETAIL,
     element: <EventManagerDetailPage />,
-    allowed: [ROLE.STUDENT, ROLE.ADMIN, ROLE.EVENT_MANAGER]
+    allowed: [ROLE.ADMIN]
   },
   {
-    title: 'STUDENT',
     path: PATH.STUDENT_DETAIL,
     element: <StudentDetailPage />,
-    allowed: [ROLE.STUDENT, ROLE.ADMIN, ROLE.EVENT_MANAGER]
+    allowed: [ROLE.ADMIN, ROLE.EVENT_MANAGER]
   },
   {
     title: 'SEMESTERS',
     path: PATH.SEMESTER_MANAGEMENT,
     element: <SemestersManagementPage />,
     allowed: [ROLE.ADMIN]
+  },
+  {
+    path: PATH.NOT_FOUND,
+    element: <NotFoundPage />,
+    allowed: [ROLE.STUDENT, ROLE.ADMIN, ROLE.EVENT_MANAGER]
   }
 ]

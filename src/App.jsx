@@ -28,14 +28,15 @@ function App() {
       </Route>
       <Route element={<PrivateRoutes />}>
         {routes
-          .filter(
-            (item) => !item.isPublic && item?.allowed?.includes(userInfo?.role)
-          )
-          .map((item) => (
-            <Route exact path={item.path} element={item.element} />
-          ))}
+          .filter((item) => !item.isPublic)
+          .map((item) =>
+            item?.allowed?.includes(userInfo?.role) ? (
+              <Route exact path={item.path} element={item.element} />
+            ) : (
+              <Route path={PATH.NOT_FOUND} element={<NotFoundPage />} />
+            )
+          )}
       </Route>
-      <Route path={PATH.NOT_FOUND} element={<NotFoundPage />} />
     </Routes>
   )
 }
