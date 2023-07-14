@@ -49,6 +49,14 @@ const ProfilePage = () => {
           </span>
           <span className='font-semibold'>
             <>
+              Major:{' '}
+              <span className='font-normal'>
+                {userInfo?.major?.code} - {userInfo?.major?.name}
+              </span>
+            </>
+          </span>
+          <span className='font-semibold'>
+            <>
               Description:{' '}
               <span className='font-normal'>{userInfo?.description}</span>
             </>
