@@ -7,7 +7,8 @@ import {
   Image,
   Input,
   Select,
-  Table
+  Table,
+  Tag
 } from 'antd'
 import React, { useEffect, useState } from 'react'
 import AxiosPost from '../config/axiosPost'
@@ -16,6 +17,7 @@ import { NotificationCustom } from '../components/Notification'
 import dayjs from 'dayjs'
 import { useSemester } from '../hooks/useSemester'
 import { TIME_FORMAT } from '../constants/common'
+import utc from 'dayjs/plugin/utc'
 
 const { Search } = Input
 
@@ -52,6 +54,19 @@ const SemestersManagementPage = () => {
       dataIndex: 'endTime',
       key: 'endTime',
       render: (endTime) => dayjs(endTime).format(TIME_FORMAT.DATE_MONTH_YEAR)
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (_, record) =>
+        dayjs(record.endTime).isBefore(dayjs()) ? (
+          <Tag color='red'>Past</Tag>
+        ) : dayjs(record?.startTime).isAfter(dayjs()) ? (
+          <Tag color='blue'>In Coming</Tag>
+        ) : (
+          <Tag color='green'>In Progress</Tag>
+        )
     }
   ]
 
@@ -70,7 +85,11 @@ const SemestersManagementPage = () => {
 
   const onFinish = (values) => {
     if (isUpdate) {
-      AxiosPut(`/semesters/${selectedSemesterId[0]}`, values)
+      AxiosPut(`/semesters/${selectedSemesterId[0]}`, {
+        ...values,
+        startTime: dayjs(values.startTime).startOf('date').utc(),
+        endTime: dayjs(values.endTime).startOf('date').utc()
+      })
         .then(() => {
           NotificationCustom({
             type: 'success',
@@ -91,7 +110,11 @@ const SemestersManagementPage = () => {
           })
         })
     } else {
-      AxiosPost('/semesters', values)
+      AxiosPost('/semesters', {
+        ...values,
+        startTime: dayjs(values.startTime).startOf('date').utc(),
+        endTime: dayjs(values.endTime).startOf('date').utc()
+      })
         .then(() => {
           NotificationCustom({
             type: 'success',
