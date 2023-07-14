@@ -18,6 +18,7 @@ import dayjs from 'dayjs'
 import { useSemester } from '../hooks/useSemester'
 import { TIME_FORMAT } from '../constants/common'
 import utc from 'dayjs/plugin/utc'
+import { useSelector } from 'react-redux'
 
 const { Search } = Input
 
@@ -30,6 +31,8 @@ const SemestersManagementPage = () => {
   const [query, setQuery] = useState()
 
   const { loading, semesters, fetchSemester } = useSemester()
+
+  const userInfo = useSelector((state) => state.global.userInfo)
 
   const columns = [
     {
@@ -138,25 +141,29 @@ const SemestersManagementPage = () => {
   return (
     <div className='p-12'>
       <div style={{ marginBottom: 24, display: 'flex', gap: '10px' }}>
-        <Button
-          style={{ display: 'flex', alignItems: 'center' }}
-          onClick={() => {
-            setSelectedSemester([])
-            setOpenDrawer(true)
-          }}
-        >
-          <PlusOutlined style={{ color: 'green' }} />
-        </Button>
-        <Button
-          style={{ display: 'flex', alignItems: 'center' }}
-          disabled={selectedSemester?.length !== 1}
-          onClick={() => {
-            setIsUpdate(true)
-            setOpenDrawer(true)
-          }}
-        >
-          <EditOutlined style={{ color: 'blue' }} />
-        </Button>
+        {userInfo?.role === 'ADMIN' && (
+          <>
+            <Button
+              style={{ display: 'flex', alignItems: 'center' }}
+              onClick={() => {
+                setSelectedSemester([])
+                setOpenDrawer(true)
+              }}
+            >
+              <PlusOutlined style={{ color: 'green' }} />
+            </Button>
+            <Button
+              style={{ display: 'flex', alignItems: 'center' }}
+              disabled={selectedSemester?.length !== 1}
+              onClick={() => {
+                setIsUpdate(true)
+                setOpenDrawer(true)
+              }}
+            >
+              <EditOutlined style={{ color: 'blue' }} />
+            </Button>
+          </>
+        )}
       </div>
 
       <section className='bg-white'>

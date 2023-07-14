@@ -110,7 +110,7 @@ export const routes = [
     title: 'SEMESTERS',
     path: PATH.SEMESTER_MANAGEMENT,
     element: <SemestersManagementPage />,
-    allowed: [ROLE.ADMIN]
+    allowed: [ROLE.ADMIN, ROLE.EVENT_MANAGER]
   },
   {
     path: PATH.NOT_FOUND,
