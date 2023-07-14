@@ -395,24 +395,24 @@ const Post = ({ event }) => {
         </>
       )}
 
-      {userInfo?.role === ROLE.EVENT_MANAGER ||
-        (userInfo?.role === ROLE.ADMIN && (
-          <div style={{ marginTop: '2rem' }}>
-            <h1 className='font-bold text-lg mb-4'>Students Registered</h1>
-            <div className='text-sm mb-2 font-medium'>Tìm kiếm (Name):</div>
-            <Search
-              onSearch={(value) => setQuery(value)}
-              className='md:max-w-[300px] mb-4'
-            />
-            <Table
-              loading={loading}
-              dataSource={dataEventRegistrationSuccess || []}
-              columns={columnEventRegistrationSuccess}
-              scroll={{ x: 1200 }}
-              pagination={{ hideOnSinglePage: true }}
-            />
-          </div>
-        ))}
+      {(userInfo?.role === ROLE.EVENT_MANAGER ||
+        userInfo?.role === ROLE.ADMIN) && (
+        <div style={{ marginTop: '2rem' }}>
+          <h1 className='font-bold text-lg mb-4'>Students Registered</h1>
+          <div className='text-sm mb-2 font-medium'>Tìm kiếm (Name):</div>
+          <Search
+            onSearch={(value) => setQuery(value)}
+            className='md:max-w-[300px] mb-4'
+          />
+          <Table
+            loading={loading}
+            dataSource={dataEventRegistrationSuccess || []}
+            columns={columnEventRegistrationSuccess}
+            scroll={{ x: 1200 }}
+            pagination={{ hideOnSinglePage: true }}
+          />
+        </div>
+      )}
     </>
   )
 }
