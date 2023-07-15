@@ -10,7 +10,8 @@ import {
   QRCode,
   Steps,
   Table,
-  Tag
+  Tag,
+  Typography
 } from 'antd'
 import AxiosPost from '../config/axiosPost'
 import { NotificationCustom } from '../components/Notification'
@@ -24,9 +25,11 @@ import AxiosPut from '../config/axiosPut'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { AiFillEye, AiFillIdcard } from 'react-icons/ai'
+import AxiosGet from '../config/axiosGet'
 
 const { confirm } = Modal
 const { Search } = Input
+const { Text } = Typography
 
 dayjs.extend(relativeTime)
 
@@ -108,6 +111,30 @@ const Post = ({ event }) => {
     { title: 'Email', key: 'email', dataIndex: 'email' },
     { title: 'Phone', key: 'phone', dataIndex: 'phone' },
     {
+      title: 'Check-in Time',
+      key: 'checkInTime',
+      dataIndex: 'checkInTime',
+      render: (_, record) =>
+        record?.activities?.find((item) => item.type === 'CHECKIN')
+          ?.completedAt &&
+        dayjs(
+          record?.activities?.find((item) => item.type === 'CHECKIN')
+            ?.completedAt
+        ).format(TIME_FORMAT.FULL_DATE_TIME)
+    },
+    {
+      title: 'Check-out Time',
+      key: 'checkInTime',
+      dataIndex: 'checkInTime',
+      render: (_, record) =>
+        record?.activities?.find((item) => item.type === 'CHECKOUT')
+          ?.completedAt &&
+        dayjs(
+          record?.activities?.find((item) => item.type === 'CHECKOUT')
+            ?.completedAt
+        ).format(TIME_FORMAT.FULL_DATE_TIME)
+    },
+    {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
@@ -143,6 +170,25 @@ const Post = ({ event }) => {
       )
     }
   ]
+
+  const handleDownloadExcel = async () => {
+    const res = await AxiosGet(
+      `/events/${event?.id}/registrations/excel`,
+      {},
+      {},
+      { 'Content-Type': 'blob' },
+      'arraybuffer'
+    )
+    const url = window.URL.createObjectURL(new Blob([res.data]))
+    const link = document.createElement('a')
+
+    link.href = url
+    link.setAttribute('download', 'event-registration.xlsx')
+    document.body.appendChild(link)
+    link.click()
+
+    document.body.removeChild(link)
+  }
 
   const handleRegisterEvent = () => {
     if (!auth) {
@@ -404,12 +450,55 @@ const Post = ({ event }) => {
             onSearch={(value) => setQuery(value)}
             className='md:max-w-[300px] mb-4'
           />
+          <Button className='ml-2' type='primary' onClick={handleDownloadExcel}>
+            Download Excel
+          </Button>
           <Table
             loading={loading}
             dataSource={dataEventRegistrationSuccess || []}
             columns={columnEventRegistrationSuccess}
             scroll={{ x: 1200 }}
             pagination={{ hideOnSinglePage: true }}
+            summary={(dataEventRegistrationSuccess) => {
+              const total = dataEventRegistrationSuccess?.length
+              const totalCheckIn = dataEventRegistrationSuccess?.filter(
+                (item) =>
+                  item?.activities?.find((item) => item.type === 'CHECKIN')
+                    ?.completedAt
+              )?.length
+              const totalCheckOut = dataEventRegistrationSuccess?.filter(
+                (item) =>
+                  item?.activities?.find((item) => item.type === 'CHECKOUT')
+                    ?.completedAt
+              )?.length
+
+              return (
+                <>
+                  <Table.Summary.Row>
+                    <Table.Summary.Cell index={0}>Total</Table.Summary.Cell>
+                    <Table.Summary.Cell index={1}>
+                      <Text type='danger'>{total}</Text>
+                    </Table.Summary.Cell>
+                  </Table.Summary.Row>
+                  <Table.Summary.Row>
+                    <Table.Summary.Cell index={0}>
+                      Total Check-in
+                    </Table.Summary.Cell>
+                    <Table.Summary.Cell index={1} colSpan={2}>
+                      <Text type='danger'>{totalCheckIn}</Text>
+                    </Table.Summary.Cell>
+                  </Table.Summary.Row>
+                  <Table.Summary.Row>
+                    <Table.Summary.Cell index={0}>
+                      Total Check-out
+                    </Table.Summary.Cell>
+                    <Table.Summary.Cell index={1} colSpan={2}>
+                      <Text type='danger'>{totalCheckOut}</Text>
+                    </Table.Summary.Cell>
+                  </Table.Summary.Row>
+                </>
+              )
+            }}
           />
         </div>
       )}
